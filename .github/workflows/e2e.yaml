@@ -3,7 +3,7 @@ name: e2e
 on:
   push:
     branches-ignore:
-    - 'main.'
+    - 'main'
     tags-ignore:
     - '*'
 
