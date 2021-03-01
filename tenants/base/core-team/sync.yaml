@@ -6,7 +6,7 @@ spec:
   interval: 1m
   url: https://github.com/mfamador/gitops-demo-tenant-core
   ref:
-    branch: core-team
+    branch: main
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
