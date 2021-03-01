@@ -12,3 +12,6 @@ _For the original example see [flux2-multi-tenancy](https://github.com/fluxcd/fl
 
 
 
+flux create tenant core-team --with-namespace=core \
+--export > ./tenants/base/core-team/rbac.yaml
+
