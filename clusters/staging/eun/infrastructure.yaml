@@ -8,7 +8,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./clusters/base/infrastructure
+  path: ./clusters/staging/eun/infrastructure
   prune: true
   validation: client
 ---
