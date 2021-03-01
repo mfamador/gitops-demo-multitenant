@@ -5,6 +5,8 @@ metadata:
 spec:
   interval: 1m
   url: https://github.com/mfamador/gitops-demo-tenant-data
+  secretRef:
+    name: flux-system
   ref:
     branch: main
 ---

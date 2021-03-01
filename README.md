@@ -15,3 +15,8 @@ _For the original example see [flux2-multi-tenancy](https://github.com/fluxcd/fl
 flux create tenant core-team --with-namespace=core \
 --export > ./tenants/base/core-team/rbac.yaml
 
+flux create source git data-team \
+--namespace=data \
+--url=https://github.com/mfamador/gitops-demo-tenant-data \
+--branch=main \
+--export > ./tenants/base/data-team/sync.yaml
