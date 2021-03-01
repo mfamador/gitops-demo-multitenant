@@ -1,0 +1,4 @@
+# Flux ignore
+.github/
+scripts/
+*.md

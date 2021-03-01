@@ -1,0 +1,11 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: hello
+spec:
+  values:
+    image:
+      tag: 1.0.6 # {"$imagepolicy": "flux-system:data-hello:tag"}
+      automation:
+        semver:
+          expr: 1.x.x

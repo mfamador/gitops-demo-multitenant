@@ -1,0 +1,24 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: core-team
+spec:
+  interval: 1m
+  url: https://github.com/mfamador/gitops-demo-tenant-core
+  ref:
+    branch: core-team
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+kind: Kustomization
+metadata:
+  name: core-team
+spec:
+  serviceAccountName: core-team
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: core-team
+  prune: true
+  validation: client
+
+
