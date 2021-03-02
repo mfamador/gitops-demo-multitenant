@@ -10,7 +10,9 @@ _For the original example see [flux2-multi-tenancy](https://github.com/fluxcd/fl
 
 # Scenario
 
-
+https://github.com/mfamador/gitops-demo-multitenant
+https://github.com/mfamador/gitops-demo-tenant-core
+https://github.com/mfamador/gitops-demo-tenant-data
 
 flux create tenant core --with-namespace=core \
 --export > ./tenants/base/core/rbac.yaml
@@ -21,11 +23,4 @@ flux create source git data \
 --branch=main \
 --export > ./tenants/base/data/sync.yaml
 --secret-ref=
-
-flux create source git flux-system \
---url=ssh://git@<host>/<org>/<repository> \
---ssh-key-algorithm=ecdsa \
---ssh-ecdsa-curve=p521 \
---branch=master \
---interval=1m
 
