@@ -5,4 +5,3 @@ bases:
 patchesStrategicMerge:
 - core-patch.yaml
 - data-patch.yaml
-- operations-patch.yaml
