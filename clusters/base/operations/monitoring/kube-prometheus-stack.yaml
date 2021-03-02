@@ -5,12 +5,17 @@ metadata:
 spec:
   releaseName: kube-prometheus-stack
   chart:
-    chart: kube-prometheus-stack
+    spec:
+      chart: kube-prometheus-stack
       sourceRef:
         kind: HelmRepository
         name: prometheus-community
         namespace: flux-system
       version: "13.13.1"
+  interval: 1h0m0s
+  install:
+    remediation:
+      retries: 3
   values:
     commonLabels:
       tier: cluster
