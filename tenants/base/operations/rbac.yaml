@@ -7,6 +7,20 @@ metadata:
   name: operations
 ---
 apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    toolkit.fluxcd.io/tenant: monitoring
+  name: istio-system
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    toolkit.fluxcd.io/tenant: monitoring
+  name: monitoring
+---
+apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
