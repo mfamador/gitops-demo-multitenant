@@ -3,5 +3,5 @@ kind: Kustomization
 bases:
 - ../../base
 patchesStrategicMerge:
-- core-team-patch.yaml
-- data-team-patch.yaml
+- core-patch.yaml
+- data-patch.yaml

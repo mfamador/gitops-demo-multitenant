@@ -1,7 +1,6 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
 metadata:
-  name: data-team
-  namespace: data
+  name: data
 spec:
-  path: ./staging/eun
+  path: ./production/eun

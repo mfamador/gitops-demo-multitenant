@@ -10,6 +10,8 @@ spec:
         resources:
           namespaces:
             - flux-system
+            - monitoring
+            - istio-system
       match:
         resources:
           kinds:
@@ -25,6 +27,8 @@ spec:
         resources:
           namespaces:
             - flux-system
+            - monitoring
+            - istio-system
       match:
         resources:
           kinds:
