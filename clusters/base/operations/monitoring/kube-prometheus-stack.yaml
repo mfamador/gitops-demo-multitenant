@@ -1,0 +1,111 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+spec:
+  releaseName: kube-prometheus-stack
+  chart:
+    chart: kube-prometheus-stack
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: flux-system
+      version: "13.13.1"
+  values:
+    commonLabels:
+      tier: cluster
+    alertmanager:
+      alertmanagerSpec:
+        forceEnableClusterMode: true
+      config:
+        global:
+          resolve_timeout: 5m
+        route:
+          group_by: ['...']
+          group_interval: 5m
+          group_wait: 30s
+          receiver: msteams_default
+          repeat_interval: 12h
+          routes:
+          - match:
+              alertname: Watchdog
+            receiver: "null"
+    grafana:
+      enabled: true
+      sidecar:
+        datasources:
+          defaultDatasourceEnabled: false
+          createPrometheusReplicasDatasources: false
+      podLabels:
+        app: grafana
+      service:
+        labels:
+          app: grafana
+      serviceMonitor:
+        interval: 30s
+        labels:
+          tier: cluster
+      additionalDataSources:
+      - name: Thanos
+        type: prometheus
+        access: proxy
+        uid: thanos_ds
+        url: http://thanos-query-http.monitoring:10902
+        isDefault: true
+      - name: Prometheus
+        type: prometheus
+        access: proxy
+        uid: prometheus_ds
+        url: http://prometheus-operated.monitoring:9090
+      - name: IstioPrometheus
+        type: prometheus
+        access: proxy
+        uid: istio_prometheus_ds
+        url: http://prometheus-operated.istio-system:9090
+      - name: Tempo
+        type: tempo
+        access: proxy
+        uid: tempo_ds
+        url: http://query-frontend.monitoring:16686
+      - name: Loki
+        type: loki
+        access: proxy
+        uid: loki_ds
+        url: http://loki:3100
+        jsonData:
+          maxLines: 1000
+          derivedFields:
+          - datasourceUid: tempo_ds
+            matcherRegex: "traceID=(\\w+)"
+            name: TraceID
+            url: "$${__value.raw}"
+      - name: Alertmanager
+        type: camptocamp-prometheus-alertmanager-datasource
+        access: proxy
+        uid: alertmanager_ds
+        url: http://alertmanager-operated.monitoring:9093
+        jsonData:
+          severity_critical: critical
+          severity_high: error
+          severity_warning: warning
+          severity_info: information
+      plugins:
+      - grafana-worldmap-panel
+      - grafana-clock-panel
+      - grafana-piechart-panel
+      - grafana-kubernetes-app
+      - camptocamp-prometheus-alertmanager-datasource
+      dashboards:
+        default:
+          weave-flux:
+            gnetId: 10475
+            revision: 1
+            datasource: Thanos
+          logging-loki:
+            gnetId: 12611
+            revision: 1
+            datasource: Loki
+          alertmanager-stats:
+            gnetId: 9578
+            revision: 4
+            datasource: Thanos
