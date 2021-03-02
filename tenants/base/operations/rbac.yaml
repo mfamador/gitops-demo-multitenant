@@ -7,13 +7,6 @@ metadata:
   name: operations
 ---
 apiVersion: v1
-kind: Namespace
-metadata:
-  labels:
-    toolkit.fluxcd.io/tenant: operations
-  name: istio-system
----
-apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
