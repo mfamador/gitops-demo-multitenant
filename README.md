@@ -11,7 +11,9 @@ _For the original example see [flux2-multi-tenancy](https://github.com/fluxcd/fl
 # Scenario
 
 https://github.com/mfamador/gitops-demo-multitenant
+
 https://github.com/mfamador/gitops-demo-tenant-core
+
 https://github.com/mfamador/gitops-demo-tenant-data
 
 flux create tenant core --with-namespace=core \
