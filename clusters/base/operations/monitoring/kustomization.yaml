@@ -3,4 +3,4 @@ kind: Kustomization
 namespace: monitoring
 resources:
 - manifests/namespace.yaml
-- kube-prometheus-stack.yaml
+# - kube-prometheus-stack.yaml
