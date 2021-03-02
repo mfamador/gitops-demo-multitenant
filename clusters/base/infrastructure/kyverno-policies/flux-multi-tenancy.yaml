@@ -12,6 +12,7 @@ spec:
             - flux-system
             - monitoring
             - istio-system
+            - nginx
       match:
         resources:
           kinds:
@@ -29,6 +30,7 @@ spec:
             - flux-system
             - monitoring
             - istio-system
+            - nginx
       match:
         resources:
           kinds:
