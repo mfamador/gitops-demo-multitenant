@@ -28,7 +28,7 @@ jobs:
         --branch=${GITHUB_REF#refs/heads/}
         flux create kustomization flux-system \
         --source=flux-system \
-        --path=./clusters/staging/eun
+        --path=./clusters/staging/northeurope
     - name: Verify cluster reconciliation
       run: |
         kubectl -n flux-system wait kustomization/infrastructure --for=condition=ready --timeout=1m

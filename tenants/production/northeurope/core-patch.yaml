@@ -1,6 +1,6 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
 metadata:
-  name: data
+  name: core
 spec:
-  path: ./production/eun
+  path: ./production/northeurope

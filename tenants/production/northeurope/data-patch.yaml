@@ -3,4 +3,4 @@ kind: Kustomization
 metadata:
   name: data
 spec:
-  path: ./staging/eun
+  path: ./production/northeurope

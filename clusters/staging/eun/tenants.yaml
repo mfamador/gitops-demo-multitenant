@@ -10,6 +10,6 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./tenants/staging/eun
+  path: ./tenants/staging/northeurope
   prune: true
   validation: client
