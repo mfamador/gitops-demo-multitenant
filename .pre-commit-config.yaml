@@ -22,16 +22,4 @@ repos:
   - id: commitizen
     name: Commitizen
     stages: [ commit-msg ]
-- repo: https://github.com/sirosen/check-jsonschema
-  rev: main
-  hooks:
-  - id: check-azure-pipelines
-- repo: https://github.com/golangci/golangci-lint
-  rev: master
-  hooks:
-  - id: golangci-lint
-    name: Golang CI Lint
-    description: Run fast multiple golang linters
-    entry: golangci-lint run --timeout=10m --fast --exclude-use-default=false --fix
-    types: [ go ]
-    language: golang
+
