@@ -1,0 +1,19 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: alertmanager
+spec:
+  releaseName: alertmanager
+  chart:
+    spec:
+      chart: alertmanager
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: flux-system
+      version: "0.6.0"
+  interval: 1h0m0s
+  timeout: 30m
+  install:
+    remediation:
+      retries: 3
