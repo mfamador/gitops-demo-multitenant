@@ -1,0 +1,24 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: prometheus-stack
+spec:
+  releaseName: prometheus-stack
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: flux-system
+      version: "14.0.1"
+  interval: 1h0m0s
+  timeout: 30m
+  install:
+    remediation:
+      retries: 3
+  values:
+    kubeStateMetrics:
+      enabled: false
+    commonLabels:
+      tier: cluster

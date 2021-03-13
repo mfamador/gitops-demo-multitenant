@@ -1,0 +1,55 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: thanos
+spec:
+  releaseName: thanos
+  chart:
+    spec:
+      chart: thanos
+      sourceRef:
+        kind: HelmRepository
+        name: banzaicloud
+        namespace: flux-system
+      version: "0.4.2"
+  interval: 1h0m0s
+  install:
+    remediation:
+      retries: 3
+  values:
+    query:
+      enabled: true
+      replicaLabels:
+        - prometheus_replica
+      replicaCount: 1
+      stores:
+      - "dnssrv+_grpc._tcp.prometheus-operated.monitoring.svc.cluster.local"
+      metrics:
+        serviceMonitor:
+          enabled: true
+          labels:
+            tier: cluster
+    store:
+      enabled: false
+    compact:
+      enabled: false
+#    compact:
+#      enabled: true
+#      dataVolume:
+#        backend:
+#          persistentVolumeClaim:
+#            claimName: compact-data-volume
+#      persistentVolumeClaim:
+#        name: compact-data-volume
+#        spec:
+#          storageClassName: "default"
+#          accessModes: ["ReadWriteOnce"]
+#          resources:
+#            requests:
+#              storage: 100Gi
+    bucket:
+      enabled: true
+    rule:
+      enabled: false
+    sidecar:
+      enabled: false

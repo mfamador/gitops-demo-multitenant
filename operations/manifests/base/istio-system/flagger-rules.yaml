@@ -1,0 +1,19 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    app: prometheus
+    tier: istio
+  name: flagger-rules
+spec:
+  groups:
+  - name: flagger.rules
+    rules:
+      - alert: FlaggerCanaryStatus
+        annotations:
+          message: 'Flagger Canary status'
+        expr: flagger_canary_status > 1
+        for: 5m
+        labels:
+          severity: warning

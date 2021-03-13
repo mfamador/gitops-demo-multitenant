@@ -1,13 +1,45 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
 metadata:
-  name: operations
+  name: operations-releases
   namespace: flux-system
 spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./operations/production/northeurope
+  path: ./operations/releases/production/westeurope
+  prune: true
+  validation: client
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+kind: Kustomization
+metadata:
+  name: operations-operators
+  namespace: flux-system
+spec:
+  dependsOn:
+  - name: operations-releases
+  interval: 10m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./operations/operators/production/westeurope
+  prune: true
+  validation: client
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+kind: Kustomization
+metadata:
+  name: operations-manifests
+  namespace: flux-system
+spec:
+  dependsOn:
+  - name: operations-operators
+  interval: 10m0s11
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./operations/manifests/production/westeurope
   prune: true
   validation: client

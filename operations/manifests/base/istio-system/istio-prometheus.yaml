@@ -1,0 +1,296 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole
+metadata:
+  name: istio-prometheus
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - nodes/metrics
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  - nodes/proxy
+  - services
+  - endpoints
+  - pods
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - extensions
+  - networking.k8s.io
+  resources:
+  - ingresses
+  verbs:
+  - get
+  - list
+  - watch
+- nonResourceURLs:
+  - /metrics
+  verbs:
+  - get
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: istio-prometheus
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: istio-prometheus
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: istio-prometheus
+subjects:
+- kind: ServiceAccount
+  name: istio-prometheus
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  labels:
+    app: istio-prometheus
+    tier: istio
+  name: istio-prometheus
+spec:
+  alerting:
+    alertmanagers:
+      - name: alertmanager-operated
+        namespace: monitoring
+        port: web
+  baseImage: quay.io/prometheus/prometheus
+  version: v2.20.1
+  enableAdminAPI: false
+  evaluationInterval: 15s
+  listenLocal: false
+  logFormat: logfmt
+  logLevel: info
+  paused: false
+  replicas: 2
+  retention: 6h
+  routePrefix: /
+  ruleSelector:
+    matchLabels:
+      tier: istio
+  serviceAccountName: istio-prometheus
+  serviceMonitorSelector:
+    matchLabels:
+      tier: istio
+  podMonitorSelector:
+    matchLabels:
+      tier: istio
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: istio-mesh-monitor
+  labels:
+    monitoring: istio-mesh
+    tier: istio
+spec:
+  selector:
+    matchExpressions:
+      - {key: istio, operator: In, values: [mixer]}
+  namespaceSelector:
+    matchNames:
+      - istio-system
+  endpoints:
+  - port: prometheus
+    interval: 15s
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: istio-component-monitor
+  labels:
+    monitoring: istio-components
+    tier: istio
+spec:
+  jobLabel: istio
+  selector:
+    matchExpressions:
+      - {key: istio, operator: In, values: [mixer,pilot,galley,citadel,sidecar-injector]}
+  namespaceSelector:
+    any: true
+  endpoints:
+  - port: http-monitoring
+    interval: 15s
+  - port: http-policy-monitoring
+    interval: 15s
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: envoy-stats-monitor
+  labels:
+    monitoring: istio-proxies
+    tier: istio
+spec:
+  selector:
+    matchExpressions:
+      - {key: istio-prometheus-ignore, operator: DoesNotExist}
+  namespaceSelector:
+    any: true
+  jobLabel: envoy-stats
+  endpoints:
+  - path: /stats/prometheus
+    targetPort: 15090
+    interval: 15s
+    relabelings:
+    - sourceLabels: [__meta_kubernetes_pod_container_port_name]
+      action: keep
+      regex: '.*-envoy-prom'
+    - action: labeldrop
+      regex: "__meta_kubernetes_pod_label_(.+)"
+    - sourceLabels: [__meta_kubernetes_namespace]
+      action: replace
+      targetLabel: namespace
+    - sourceLabels: [__meta_kubernetes_pod_name]
+      action: replace
+      targetLabel: pod_name
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus
+  labels:
+    app: prometheus
+    tier: istio
+spec:
+  ports:
+  - name: web
+    port: 9090
+    protocol: TCP
+    targetPort: 9090
+  selector:
+    app: prometheus
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: istio-record-rules
+  labels:
+    app: istio-prometheus
+    tier: istio
+spec:
+  groups:
+  - name: "istio.recording-rules"
+    interval: 15s
+    rules:
+    - record: "workload:istio_requests_total"
+      expr: |
+        sum without(instance, namespace, pod_name) (istio_requests_total)
+
+    - record: "workload:istio_request_duration_milliseconds_count"
+      expr: |
+        sum without(instance, namespace, pod_name) (istio_request_duration_milliseconds_count)
+
+    - record: "workload:istio_request_duration_milliseconds_sum"
+      expr: |
+        sum without(instance, namespace, pod_name) (istio_request_duration_milliseconds_sum)
+
+    - record: "workload:istio_request_duration_milliseconds_bucket"
+      expr: |
+        sum without(instance, namespace, pod_name) (istio_request_duration_milliseconds_bucket)
+
+    - record: "workload:istio_request_bytes_count"
+      expr: |
+        sum without(instance, namespace, pod_name) (istio_request_bytes_count)
+
+    - record: "workload:istio_request_bytes_sum"
+      expr: |
+        sum without(instance, namespace, pod_name) (istio_request_bytes_sum)
+
+    - record: "workload:istio_request_bytes_bucket"
+      expr: |
+        sum without(instance, namespace, pod_name) (istio_request_bytes_bucket)
+
+    - record: "workload:istio_response_bytes_count"
+      expr: |
+        sum without(instance, namespace, pod_name) (istio_response_bytes_count)
+
+    - record: "workload:istio_response_bytes_sum"
+      expr: |
+        sum without(instance, namespace, pod_name) (istio_response_bytes_sum)
+
+    - record: "workload:istio_response_bytes_bucket"
+      expr: |
+        sum without(instance, namespace, pod_name) (istio_response_bytes_bucket)
+
+    - record: "workload:istio_tcp_connections_opened_total"
+      expr: |
+        sum without(instance, namespace, pod_name) (istio_tcp_connections_opened_total)
+
+    - record: "workload:istio_tcp_connections_closed_total"
+      expr: |
+        sum without(instance, namespace, pod_name) (istio_tcp_connections_opened_total)
+
+    - record: "workload:istio_tcp_sent_bytes_total_count"
+      expr: |
+        sum without(instance, namespace, pod_name) (istio_tcp_sent_bytes_total_count)
+
+    - record: "workload:istio_tcp_sent_bytes_total_sum"
+      expr: |
+        sum without(instance, namespace, pod_name) (istio_tcp_sent_bytes_total_sum)
+
+    - record: "workload:istio_tcp_sent_bytes_total_bucket"
+      expr: |
+        sum without(instance, namespace, pod_name) (istio_tcp_sent_bytes_total_bucket)
+
+    - record: "workload:istio_tcp_received_bytes_total_count"
+      expr: |
+        sum without(instance, namespace, pod_name) (istio_tcp_received_bytes_total_count)
+
+    - record: "workload:istio_tcp_received_bytes_total_sum"
+      expr: |
+        sum without(instance, namespace, pod_name) (istio_tcp_received_bytes_total_sum)
+
+    - record: "workload:istio_tcp_received_bytes_total_bucket"
+      expr: |
+        sum without(instance, namespace, pod_name) (istio_tcp_received_bytes_total_bucket)
+
+    - record: "istio:istio_requests:by_destination_service:rate1m"
+      expr: |
+        sum(irate(istio_requests_total{reporter="destination"}[1m]))
+        by (
+          destination_canonical_service,
+          destination_workload_namespace
+        )
+
+    - record: "istio:istio_request_duration_milliseconds_bucket:p96:rate1m"
+      expr: |
+        histogram_quantile(0.96,
+          sum(irate(istio_request_duration_milliseconds_bucket{reporter="source"}[1m]))
+          by (
+            destination_canonical_service,
+            destination_workload_namespace,
+            source_canonical_service,
+            source_workload_namespace,
+            le
+          )
+        )
+
+    - record: "istio:istio_request_duration_milliseconds_bucket:p99:rate1m"
+      expr: |
+        histogram_quantile(0.99,
+          sum(irate(istio_request_duration_milliseconds_bucket{reporter="source"}[1m]))
+          by (
+            destination_canonical_service,
+            destination_workload_namespace,
+            source_canonical_service,
+            source_workload_namespace,
+            le
+          )
+        )

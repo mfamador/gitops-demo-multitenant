@@ -1,0 +1,29 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    app: prometheus
+    tier: cluster
+  name: istio-rules
+spec:
+  groups:
+    - name: istio.rules
+      rules:
+        - alert: IstioGatewayAvailabilityDrop
+          annotations:
+            message: 'Istio Gateway pods have dropped during the last 5m (current value: *{{ printf "%2.0f%%" $value }}*). Inbound traffic will likely be affected'
+          expr: >
+            min(kube_deployment_status_replicas_available{deployment="istio-ingressgateway", namespace="istio-system"}) without (instance, pod) < 2
+          for: 5m
+          labels:
+            severity: warning
+
+        - alert: IstiodAvailabilityDrop
+          annotations:
+            message: 'Istiod pods have dropped during the last 5m (current value: *{{ printf "%2.0f%%" $value }}*).'
+          expr: >
+            min(kube_deployment_status_replicas_available{deployment="istiod", namespace="istio-system"}) without (instance, pod) < 2
+          for: 5m
+          labels:
+            severity: warning

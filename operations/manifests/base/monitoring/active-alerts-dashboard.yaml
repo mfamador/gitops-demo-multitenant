@@ -1,0 +1,1025 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: active-alerts
+  labels:
+    grafana_dashboard: "1"
+data:
+  active-alerts.json: |-
+    {
+      "__requires": [
+        {
+          "type": "datasource",
+          "id": "camptocamp-prometheus-alertmanager-datasource",
+          "name": "Prometheus AlertManager",
+          "version": "0.0.8"
+        },
+        {
+          "type": "grafana",
+          "id": "grafana",
+          "name": "Grafana",
+          "version": "7.1.1"
+        },
+        {
+          "type": "panel",
+          "id": "stat",
+          "name": "Stat",
+          "version": ""
+        },
+        {
+          "type": "panel",
+          "id": "table-old",
+          "name": "Table (old)",
+          "version": ""
+        }
+      ],
+      "annotations": {
+        "list": [
+          {
+            "builtIn": 1,
+            "datasource": "-- Grafana --",
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "showIn": 0,
+            "type": "dashboard"
+          }
+        ]
+      },
+      "description": "Dashboard to visualize only Open(LIVE) Alerts of AlertManager",
+      "editable": true,
+      "gnetId": 12947,
+      "graphTooltip": 0,
+      "id": null,
+      "iteration": 1603462342881,
+      "links": [],
+      "panels": [
+        {
+          "cacheTimeout": null,
+          "datasource": "$alertmanager",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "displayName": "",
+              "mappings": [
+                {
+                  "id": 0,
+                  "op": "=",
+                  "text": "0",
+                  "type": 1,
+                  "value": "null"
+                }
+              ],
+              "nullValueMode": "connected",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 3,
+            "x": 0,
+            "y": 0
+          },
+          "id": 8,
+          "links": [],
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                  "lastNotNull"
+              ],
+              "fields": "",
+              "values": true
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.1.1",
+          "targets": [
+            {
+              "annotations": false,
+              "expr": "cluster=~\"$cluster\", environment=~\"$environment\",  namespace=~\"$namespace\", severity=~\"$severity\",alertname=~\".*\"",
+              "labelSelector": "*",
+              "legendFormat": "",
+              "refId": "A",
+              "target": "Query",
+              "type": "single"
+            }
+          ],
+          "title": "Total",
+          "type": "stat"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "$alertmanager",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "displayName": "",
+              "mappings": [
+                {
+                  "id": 0,
+                  "op": "=",
+                  "text": "0",
+                  "type": 1,
+                  "value": "null"
+                }
+              ],
+              "nullValueMode": "connected",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 3,
+            "x": 3,
+            "y": 0
+          },
+          "id": 20,
+          "links": [],
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                  "lastNotNull"
+              ],
+              "fields": "",
+              "values": true
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.1.1",
+          "targets": [
+            {
+              "annotations": false,
+              "expr": "cluster=~\"$cluster\", environment=~\"$environment\",  namespace=~\"$namespace\", severity=~\"critical\",alertname=~\".*\"",
+              "labelSelector": "*",
+              "legendFormat": "",
+              "refId": "A",
+              "target": "Query",
+              "type": "single"
+            }
+          ],
+          "title": "Total Critical",
+          "type": "stat"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "$alertmanager",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "displayName": "",
+              "mappings": [
+                {
+                  "id": 0,
+                  "op": "=",
+                  "text": "0",
+                  "type": 1,
+                  "value": "null"
+                }
+              ],
+              "nullValueMode": "connected",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "orange",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 3,
+            "x": 6,
+            "y": 0
+          },
+          "id": 21,
+          "links": [],
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                  "lastNotNull"
+              ],
+              "fields": "",
+              "values": true
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.1.1",
+          "targets": [
+            {
+              "annotations": false,
+              "expr": "cluster=~\"$cluster\", environment=~\"$environment\",  namespace=~\"$namespace\", severity=~\"warning\",alertname=~\".*\"",
+              "labelSelector": "*",
+              "legendFormat": "",
+              "refId": "A",
+              "target": "Query",
+              "type": "single"
+            }
+          ],
+          "title": "Total Warning",
+          "type": "stat"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "$alertmanager",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "displayName": "",
+              "mappings": [
+                {
+                  "id": 0,
+                  "op": "=",
+                  "text": "0",
+                  "type": 1,
+                  "value": "null"
+                }
+              ],
+              "nullValueMode": "connected",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 3,
+            "x": 9,
+            "y": 0
+          },
+          "id": 18,
+          "links": [],
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                  "lastNotNull"
+              ],
+              "fields": "",
+              "values": true
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.1.1",
+          "targets": [
+            {
+              "annotations": false,
+              "expr": "cluster=~\"$cluster\", environment=~\"$environment\",  namespace=~\"$namespace\", alertname=~\"TargetDown\"",
+              "labelSelector": "*",
+              "legendFormat": "",
+              "refId": "A",
+              "target": "Query",
+              "type": "single"
+            }
+          ],
+          "title": "Target Down",
+          "type": "stat"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "$alertmanager",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [
+                {
+                  "id": 0,
+                  "op": "=",
+                  "text": "0",
+                  "type": 1,
+                  "value": "null"
+                }
+              ],
+              "nullValueMode": "connected",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 3,
+            "x": 12,
+            "y": 0
+          },
+          "id": 15,
+          "links": [],
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                  "lastNotNull"
+              ],
+              "fields": "",
+              "values": true
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.1.1",
+          "targets": [
+            {
+              "annotations": false,
+              "expr": "cluster=~\"$cluster\", environment=~\"$environment\",  namespace=~\"$namespace\", alertname=~\"FluxManifestErrors\"",
+              "labelSelector": "*",
+              "legendFormat": "",
+              "refId": "A",
+              "target": "Query",
+              "type": "single"
+            }
+          ],
+          "title": "GitOps Manifests Errors",
+          "type": "stat"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "$alertmanager",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [
+                {
+                  "id": 0,
+                  "op": "=",
+                  "text": "0",
+                  "type": 1,
+                  "value": "null"
+                }
+              ],
+              "nullValueMode": "connected",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "light-red",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 3,
+            "x": 15,
+            "y": 0
+          },
+          "id": 16,
+          "links": [],
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                  "lastNotNull"
+              ],
+              "fields": "",
+              "values": true
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.1.1",
+          "targets": [
+            {
+              "annotations": false,
+              "expr": "cluster=~\"$cluster\", environment=~\"$environment\",  namespace=~\"$namespace\", alertname=~\"HelmReleaseError\"",
+              "labelSelector": "*",
+              "legendFormat": "",
+              "refId": "A",
+              "target": "Query",
+              "type": "single"
+            }
+          ],
+          "title": "Helm Release Errors",
+          "type": "stat"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "$alertmanager",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [
+                {
+                  "id": 0,
+                  "op": "=",
+                  "text": "0",
+                  "type": 1,
+                  "value": "null"
+                }
+              ],
+              "nullValueMode": "connected",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "light-red",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 3,
+            "x": 18,
+            "y": 0
+          },
+          "id": 23,
+          "links": [],
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                  "lastNotNull"
+              ],
+              "fields": "",
+              "values": true
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.1.1",
+          "targets": [
+            {
+              "annotations": false,
+              "expr": "cluster=~\"$cluster\", environment=~\"$environment\",  alertname=~\"IstioGatewayAvailabilityDrop\"",
+              "labelSelector": "*",
+              "legendFormat": "",
+              "refId": "A",
+              "target": "Query",
+              "type": "single"
+            }
+          ],
+          "title": "Istio Gateway Availability",
+          "type": "stat"
+        },
+        {
+          "cacheTimeout": null,
+          "datasource": "$alertmanager",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "mappings": [
+                {
+                  "id": 0,
+                  "op": "=",
+                  "text": "0",
+                  "type": 1,
+                  "value": "null"
+                }
+              ],
+              "nullValueMode": "connected",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "light-red",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 3,
+            "x": 21,
+            "y": 0
+          },
+          "id": 24,
+          "links": [],
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                  "lastNotNull"
+              ],
+              "fields": "",
+              "values": true
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "7.1.1",
+          "targets": [
+            {
+              "annotations": false,
+              "expr": "cluster=~\"$cluster\", environment=~\"$environment\",  alertname=~\"IstiodAvailabilityDrop\"",
+              "labelSelector": "*",
+              "legendFormat": "",
+              "refId": "A",
+              "target": "Query",
+              "type": "single"
+            }
+          ],
+          "title": "Istiod Availability",
+          "type": "stat"
+        },
+        {
+          "columns": [],
+          "datasource": "$alertmanager",
+          "description": "MAKE SURE TO SCROLL TO BOTTOM AND CHECK FOR MORE ALERTS",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fontSize": "100%",
+          "gridPos": {
+            "h": 98,
+            "w": 24,
+            "x": 0,
+            "y": 4
+          },
+          "id": 14,
+          "pageSize": null,
+          "showHeader": true,
+          "sort": {
+            "col": 0,
+            "desc": true
+          },
+          "styles": [
+            {
+              "$$hashKey": "object:537",
+              "alias": "TIME",
+              "align": "",
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "link": false,
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "$$hashKey": "object:538",
+              "alias": "ALERT",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                  "rgba(245, 54, 54, 0.9)",
+                  "rgba(237, 129, 40, 0.89)",
+                  "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "alertname",
+              "preserveFormat": false,
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            },
+            {
+              "$$hashKey": "object:539",
+              "alias": "DESCRIPTION",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                  "rgba(245, 54, 54, 0.9)",
+                  "rgba(237, 129, 40, 0.89)",
+                  "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "message",
+              "preserveFormat": false,
+              "sanitize": false,
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            },
+            {
+              "$$hashKey": "object:540",
+              "alias": "SEVERITY",
+              "align": "auto",
+              "colorMode": "row",
+              "colors": [
+                  "rgba(50, 172, 45, 0.97)",
+                  "rgba(237, 129, 40, 0.89)",
+                  "rgba(245, 54, 54, 0.9)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 0,
+              "mappingType": 1,
+              "pattern": "severity",
+              "preserveFormat": false,
+              "sanitize": false,
+              "thresholds": [
+                  "2",
+                  "4"
+              ],
+              "type": "string",
+              "unit": "short",
+              "valueMaps": [
+                {
+                  "$$hashKey": "object:638",
+                  "text": "CRITICAL",
+                  "value": "4"
+                },
+                {
+                  "$$hashKey": "object:639",
+                  "text": "WARNING",
+                  "value": "2"
+                }
+              ]
+            },
+            {
+              "$$hashKey": "object:541",
+              "alias": "CLUSTER",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                  "rgba(245, 54, 54, 0.9)",
+                  "rgba(237, 129, 40, 0.89)",
+                  "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "cluster",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            },
+            {
+              "$$hashKey": "object:542",
+              "alias": "ENV",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                  "rgba(245, 54, 54, 0.9)",
+                  "rgba(237, 129, 40, 0.89)",
+                  "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "environment",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            },
+            {
+              "$$hashKey": "object:543",
+              "alias": "HOST",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                  "rgba(245, 54, 54, 0.9)",
+                  "rgba(237, 129, 40, 0.89)",
+                  "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "host",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            },
+            {
+              "$$hashKey": "object:544",
+              "alias": "",
+              "align": "right",
+              "colorMode": null,
+              "colors": [
+                  "rgba(245, 54, 54, 0.9)",
+                  "rgba(237, 129, 40, 0.89)",
+                  "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "hidden",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "annotations": false,
+              "expr": "cluster=~\"$cluster\", environment=~\"$environment\", namespace=~\"$namespace\",  severity=~\"$severity\",alertname=~\"$alertname\"",
+              "labelSelector": "*",
+              "legendFormat": "{{ msg }}",
+              "refId": "A",
+              "target": "Query",
+              "type": "table"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "OPEN ALERTS",
+          "transform": "table",
+          "transformations": [
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {},
+                "indexByName": {
+                  "Time": 0,
+                  "alertname": 1,
+                  "availability_zone": 3,
+                  "container_name": 18,
+                  "data": 17,
+                  "device": 5,
+                  "env": 4,
+                  "fstype": 6,
+                  "host": 2,
+                  "image_name": 19,
+                  "instance": 7,
+                  "instance_type": 8,
+                  "ipaddress": 9,
+                  "job": 10,
+                  "mountpoint": 11,
+                  "name": 23,
+                  "platform_version": 12,
+                  "prometheus": 13,
+                  "region": 14,
+                  "service_name": 20,
+                  "severity": 15,
+                  "slack_channel": 21,
+                  "state": 24,
+                  "tag_name": 22,
+                  "team": 16,
+                  "type": 25
+                },
+                "renameByName": {}
+              }
+            }
+          ],
+          "type": "table-old"
+        }
+      ],
+      "refresh": "1m",
+      "schemaVersion": 26,
+      "style": "dark",
+      "tags": [
+          "alertmanager",
+          "open-alerts"
+      ],
+      "templating": {
+        "list": [
+          {
+            "current": {
+              "selected": false,
+              "text": "Alertmanager",
+              "value": "Alertmanager"
+            },
+            "hide": 0,
+            "includeAll": false,
+            "label": "Alertmanager",
+            "multi": false,
+            "name": "alertmanager",
+            "options": [],
+            "query": "camptocamp-prometheus-alertmanager-datasource",
+            "queryValue": "",
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "type": "datasource"
+          },
+          {
+            "allValue": null,
+            "current": {
+              "selected": false,
+              "text": "All",
+              "value": "$__all"
+            },
+            "datasource": "$alertmanager",
+            "definition": "label_values(cluster)",
+            "hide": 0,
+            "includeAll": true,
+            "label": "Cluster",
+            "multi": true,
+            "name": "cluster",
+            "options": [],
+            "query": "label_values(cluster)",
+            "refresh": 2,
+            "regex": "",
+            "skipUrlSync": false,
+            "sort": 0,
+            "tagValuesQuery": "",
+            "tags": [],
+            "tagsQuery": "",
+            "type": "query",
+            "useTags": false
+          },
+          {
+            "allValue": null,
+            "current": {
+              "selected": false,
+              "text": "All",
+              "value": "$__all"
+            },
+            "datasource": "$alertmanager",
+            "definition": "label_values(cluster=~\"$cluster\")",
+            "hide": 0,
+            "includeAll": true,
+            "label": "Environment",
+            "multi": true,
+            "name": "environment",
+            "options": [],
+            "query": "label_values(cluster=~\"$cluster\")",
+            "refresh": 1,
+            "regex": "/\"environment\":\"(.*?)\"/",
+            "skipUrlSync": false,
+            "sort": 0,
+            "tagValuesQuery": "",
+            "tags": [],
+            "tagsQuery": "",
+            "type": "query",
+            "useTags": false
+          },
+          {
+            "allValue": null,
+            "current": {
+              "selected": false,
+              "text": "All",
+              "value": "$__all"
+            },
+            "datasource": "$alertmanager",
+            "definition": "label_values(cluster=~\"$cluster\", environment=~\"$environment\")",
+            "hide": 0,
+            "includeAll": true,
+            "label": "Namespace",
+            "multi": true,
+            "name": "namespace",
+            "options": [],
+            "query": "label_values(cluster=~\"$cluster\", environment=~\"$environment\")",
+            "refresh": 2,
+            "regex": "/\"namespace\":\"(.*?)\"/",
+            "skipUrlSync": false,
+            "sort": 0,
+            "tagValuesQuery": "",
+            "tags": [],
+            "tagsQuery": "",
+            "type": "query",
+            "useTags": false
+          },
+          {
+            "allValue": null,
+            "current": {
+              "selected": false,
+              "text": "All",
+              "value": "$__all"
+            },
+            "datasource": "$alertmanager",
+            "definition": "label_values(cluster=~\"$cluster\", environment=~\"$environment\", namespace=~\"$namespace\")",
+            "hide": 0,
+            "includeAll": true,
+            "label": "Severity",
+            "multi": true,
+            "name": "severity",
+            "options": [],
+            "query": "label_values(cluster=~\"$cluster\", environment=~\"$environment\", namespace=~\"$namespace\")",
+            "refresh": 2,
+            "regex": "/\"severity\":\"(.*?)\"/",
+            "skipUrlSync": false,
+            "sort": 0,
+            "tagValuesQuery": "",
+            "tags": [],
+            "tagsQuery": "",
+            "type": "query",
+            "useTags": false
+          },
+          {
+            "allValue": null,
+            "current": {
+              "selected": false,
+              "text": "All",
+              "value": "$__all"
+            },
+            "datasource": "$alertmanager",
+            "definition": "label_values(cluster=~\"$cluster\", environment=~\"$environment\", namespace=~\"$namespace\", severity=~\"$severity\")",
+            "hide": 0,
+            "includeAll": true,
+            "label": "Alert",
+            "multi": true,
+            "name": "alertname",
+            "options": [],
+            "query": "label_values(cluster=~\"$cluster\", environment=~\"$environment\", namespace=~\"$namespace\", severity=~\"$severity\")",
+            "refresh": 2,
+            "regex": "/\"alertname\":\"(.*?)\"/",
+            "skipUrlSync": false,
+            "sort": 0,
+            "tagValuesQuery": "",
+            "tags": [],
+            "tagsQuery": "",
+            "type": "query",
+            "useTags": false
+          }
+        ]
+      },
+      "time": {
+        "from": "now-3h",
+        "to": "now"
+      },
+      "timepicker": {
+        "refresh_intervals": [
+            "10s",
+            "30s",
+            "1m",
+            "5m",
+            "15m",
+            "30m",
+            "1h",
+            "2h",
+            "1d"
+        ],
+        "time_options": [
+            "5m",
+            "15m",
+            "1h",
+            "6h",
+            "12h",
+            "24h",
+            "2d",
+            "7d",
+            "30d"
+        ]
+      },
+      "timezone": "browser",
+      "title": "Active Alerts",
+      "uid": "E1ZSUX5Mk",
+      "version": 2
+    }
