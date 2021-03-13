@@ -4,7 +4,7 @@ metadata:
   name: operations-releases
   namespace: flux-system
 spec:
-  interval: 10m0s
+  interval: 10m0
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -36,7 +36,7 @@ metadata:
 spec:
   dependsOn:
   - name: operations-operators
-  interval: 10m0s11
+  interval: 10m0s
   sourceRef:
     kind: GitRepository
     name: flux-system
