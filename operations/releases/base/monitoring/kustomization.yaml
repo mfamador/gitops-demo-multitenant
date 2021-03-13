@@ -4,8 +4,11 @@ namespace: monitoring
 resources:
 - namespace.yaml
 # - gatekeeper.yaml
+- grafana.yaml
 - loki.yaml
+- prometheus.yaml
 - prometheus-adapter.yaml
-- prometheus-stack.yaml
+#- prometheus-stack.yaml
+- prometheus.yaml
 - tempo.yaml
 - thanos.yaml
