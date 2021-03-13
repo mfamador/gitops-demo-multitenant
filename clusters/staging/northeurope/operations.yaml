@@ -36,7 +36,7 @@ metadata:
 spec:
   dependsOn:
   - name: operations-releases
-  interval: 10m0s11
+  interval: 10m0s
   sourceRef:
     kind: GitRepository
     name: flux-system
