@@ -4,6 +4,7 @@ kind: Namespace
 metadata:
   labels:
     toolkit.fluxcd.io/tenant: data
+    istio-injection: enabled
   name: data
 ---
 apiVersion: v1

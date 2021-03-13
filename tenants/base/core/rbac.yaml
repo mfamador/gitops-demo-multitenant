@@ -4,8 +4,8 @@ kind: Namespace
 metadata:
   labels:
     toolkit.fluxcd.io/tenant: core
+    istio-injection: enabled
   name: core
-
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -13,7 +13,6 @@ metadata:
   labels:
     toolkit.fluxcd.io/tenant: core
   name: core
-
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
