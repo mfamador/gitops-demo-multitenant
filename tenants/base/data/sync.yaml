@@ -15,7 +15,7 @@ metadata:
   name: data
 spec:
   serviceAccountName: data
-  interval: 10m0s
+  interval: 5m0s
   path: ./staging/northeurope
   prune: true
   sourceRef:
