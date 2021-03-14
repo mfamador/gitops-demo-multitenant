@@ -53,7 +53,7 @@ flux create kustomization data \
 --source=data \
 --path="./staging/northeurope" \
 --prune=true \
---interval=10m \
+--interval=5m \
 --export >> ./tenants/base/data/sync.yaml
 
 
