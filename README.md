@@ -44,8 +44,9 @@ flux create source git data \
 --namespace=data \
 --url=https://github.com/mfamador/gitops-demo-tenant-data \
 --branch=main \
---secret-ref=data \
 --export > ./tenants/base/data/sync.yaml
+
+[comment]: <> ( --secret-ref=data \)
 
 flux create kustomization data \
 --namespace=data \
