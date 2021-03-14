@@ -16,13 +16,22 @@ https://github.com/mfamador/gitops-demo-tenant-core
 
 https://github.com/mfamador/gitops-demo-tenant-data
 
-flux create tenant core --with-namespace=core \
---export > ./tenants/base/core/rbac.yaml
+flux create tenant data --with-namespace=core \
+--export > ./tenants/base/data/rbac.yaml
 
 flux create source git data \
 --namespace=data \
 --url=https://github.com/mfamador/gitops-demo-tenant-data \
 --branch=main \
+--secret-ref=data \
 --export > ./tenants/base/data/sync.yaml
---secret-ref=
+
+flux create kustomization data \
+--namespace=data \
+--source=data \
+--path="./staging/northeurope" \
+--prune=true \
+--interval=10m \
+--export >> ./tenants/base/data/sync.yaml
+
 

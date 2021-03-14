@@ -22,3 +22,5 @@ spec:
       enabled: false
     commonLabels:
       tier: cluster
+    grafana:
+      enabled: false
