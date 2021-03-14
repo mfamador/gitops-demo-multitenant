@@ -11,8 +11,10 @@ _For the original example see [flux2-multi-tenancy](https://github.com/fluxcd/fl
 # Scenario
 
 ```bash
+k3d cluster create -p 8080:80@loadbalancer --agents 3 --k3s-server-arg "--no-deploy=traefik"
+
 export GIT_ACCESS_TOKEN=<REDACTED>
-export GITHUB_USER=mfamador
+export GITHUB_USER=<YOUR_GITHUB_USER>
 export GITHUB_REPO=gitops-demo-multitenant
 
 flux bootstrap github \
@@ -41,24 +43,25 @@ https://github.com/mfamador/gitops-demo-tenant-data
 flux create tenant data --with-namespace=core \
 --export > ./tenants/base/data/rbac.yaml
 
-# create the git source
-flux create source git data \
---namespace=data \
---url=https://github.com/mfamador/gitops-demo-tenant-data \
---branch=main
-
-# export the config to tenant folder
+# create the tenant's git source
 flux create source git data \
 --namespace=data \
 --url=https://github.com/mfamador/gitops-demo-tenant-data \
 --branch=main \
+--secret-ref=data
+
+# export the config to tenant folder
+flux create source git data \
+--url=https://github.com/mfamador/gitops-demo-tenant-data \
+--branch=main \
+--secret-ref=data \
 --export > ./tenants/base/data/sync.yaml
 
-IMPORTANT: add serviceAccountName: data
-# --secret-ref=data 
+IMPORTANT: 
+add serviceAccountName: data
+and create secret from flux-system secret
 
 flux create kustomization data \
---namespace=data \
 --source=data \
 --path="./staging/northeurope" \
 --prune=true \

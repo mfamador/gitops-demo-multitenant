@@ -7,7 +7,10 @@ spec:
   interval: 1m0s
   ref:
     branch: main
+  secretRef:
+    name: data
   url: https://github.com/mfamador/gitops-demo-tenant-data
+
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization

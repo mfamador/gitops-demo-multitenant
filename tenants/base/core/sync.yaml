@@ -1,12 +1,16 @@
+---
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: GitRepository
 metadata:
   name: core
 spec:
-  interval: 1m
-  url: https://github.com/mfamador/gitops-demo-tenant-core
+  interval: 1m0s
   ref:
     branch: main
+  secretRef:
+    name: core
+  url: https://github.com/mfamador/gitops-demo-tenant-core
+
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
@@ -14,11 +18,10 @@ metadata:
   name: core
 spec:
   serviceAccountName: core
-  interval: 5m
+  interval: 5m0s
+  path: ./staging/northeurope
+  prune: true
   sourceRef:
     kind: GitRepository
     name: core
-  prune: true
-  validation: client
-
 
