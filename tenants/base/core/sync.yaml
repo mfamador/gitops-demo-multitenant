@@ -19,7 +19,6 @@ metadata:
 spec:
   serviceAccountName: core
   interval: 5m0s
-  path: ./staging/northeurope
   prune: true
   sourceRef:
     kind: GitRepository
