@@ -37,16 +37,25 @@ https://github.com/mfamador/gitops-demo-tenant-data
 
 ## Create `data` tenant
 
+```bash
 flux create tenant data --with-namespace=core \
 --export > ./tenants/base/data/rbac.yaml
 
+# create the git source
+flux create source git data \
+--namespace=data \
+--url=https://github.com/mfamador/gitops-demo-tenant-data \
+--branch=main
+
+# export the config to tenant folder
 flux create source git data \
 --namespace=data \
 --url=https://github.com/mfamador/gitops-demo-tenant-data \
 --branch=main \
 --export > ./tenants/base/data/sync.yaml
 
-[comment]: <> ( --secret-ref=data \)
+IMPORTANT: add serviceAccountName: data
+# --secret-ref=data 
 
 flux create kustomization data \
 --namespace=data \
@@ -57,3 +66,4 @@ flux create kustomization data \
 --export >> ./tenants/base/data/sync.yaml
 
 
+```
