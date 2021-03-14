@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: monitoring
 resources:
 - namespace.yaml
-- alertmanager.yaml
+#- alertmanager.yaml
 # - gatekeeper.yaml
 - grafana.yaml
 - loki.yaml
