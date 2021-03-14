@@ -10,11 +10,32 @@ _For the original example see [flux2-multi-tenancy](https://github.com/fluxcd/fl
 
 # Scenario
 
+```bash
+export GIT_ACCESS_TOKEN=<REDACTED>
+export GITHUB_USER=mfamador
+export GITHUB_REPO=gitops-demo-multitenant
+
+flux bootstrap github \
+--components-extra=image-reflector-controller,image-automation-controller \
+--context=k3d-k3s-default \
+--owner=${GITHUB_USER} \
+--repository=${GITHUB_REPO} \
+--branch=main \
+--personal \
+--path=clusters/staging/northeurope \
+--token-auth
+
+```
+
+### Tenant's repos
+
 https://github.com/mfamador/gitops-demo-multitenant
 
 https://github.com/mfamador/gitops-demo-tenant-core
 
 https://github.com/mfamador/gitops-demo-tenant-data
+
+## Create `data` tenant
 
 flux create tenant data --with-namespace=core \
 --export > ./tenants/base/data/rbac.yaml
