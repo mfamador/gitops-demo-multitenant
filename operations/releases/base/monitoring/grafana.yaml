@@ -46,6 +46,11 @@ spec:
       datasources.yaml:
         apiVersion: 1
         datasources:
+        - name: Tempo
+          type: tempo
+          access: proxy
+          uid: tempo_ds
+          url: http://tempo-tempo-distributed-query-frontend.monitoring:16686
         - name: Loki
           type: loki
           access: proxy
@@ -74,11 +79,6 @@ spec:
     #      access: proxy
     #      uid: istio_prometheus_ds
     #      url: http://prometheus-operated.istio-system:9090
-    #    - name: Tempo
-    #      type: tempo
-    #      access: proxy
-    #      uid: tempo_ds
-    #      url: http://tempo-tempo-distributed-query-frontend.monitoring:16686
 #    - name: Alertmanager
 #      type: camptocamp-prometheus-alertmanager-datasource
 #      access: proxy
