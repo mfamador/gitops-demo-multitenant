@@ -43,39 +43,42 @@ spec:
       labels:
         tier: cluster
     datasources:
-    #    - name: Thanos
+      datasources.yaml:
+        apiVersion: 1
+        datasources:
+        #    - name: Thanos
+        #      type: prometheus
+        #      access: proxy
+        #      uid: thanos_ds
+        #      url: http://thanos-query-http.monitoring:10902
+        #      isDefault: true
+    #    - name: Prometheus
     #      type: prometheus
     #      access: proxy
-    #      uid: thanos_ds
-    #      url: http://thanos-query-http.monitoring:10902
-    #      isDefault: true
-#    - name: Prometheus
-#      type: prometheus
-#      access: proxy
-#      uid: prometheus_ds
-#      url: http://prometheus-operated.monitoring:9090
-#    - name: IstioPrometheus
-#      type: prometheus
-#      access: proxy
-#      uid: istio_prometheus_ds
-#      url: http://prometheus-operated.istio-system:9090
-#    - name: Tempo
-#      type: tempo
-#      access: proxy
-#      uid: tempo_ds
-#      url: http://tempo-tempo-distributed-query-frontend.monitoring:16686
-    - name: Loki
-      type: loki
-      access: proxy
-      uid: loki_ds
-      url: http://loki-loki-distributed-querier.monitoring:3100
-      jsonData:
-        maxLines: 1000
-        derivedFields:
-        - datasourceUid: tempo_ds
-          matcherRegex: "traceID=(\\w+)"
-          name: TraceID
-          url: "$${__value.raw}"
+    #      uid: prometheus_ds
+    #      url: http://prometheus-operated.monitoring:9090
+    #    - name: IstioPrometheus
+    #      type: prometheus
+    #      access: proxy
+    #      uid: istio_prometheus_ds
+    #      url: http://prometheus-operated.istio-system:9090
+    #    - name: Tempo
+    #      type: tempo
+    #      access: proxy
+    #      uid: tempo_ds
+    #      url: http://tempo-tempo-distributed-query-frontend.monitoring:16686
+        - name: Loki
+          type: loki
+          access: proxy
+          uid: loki_ds
+          url: http://loki-loki-distributed-querier.monitoring:3100
+          jsonData:
+            maxLines: 1000
+            derivedFields:
+            - datasourceUid: tempo_ds
+              matcherRegex: "traceID=(\\w+)"
+              name: TraceID
+              url: "$${__value.raw}"
 #    - name: Alertmanager
 #      type: camptocamp-prometheus-alertmanager-datasource
 #      access: proxy
