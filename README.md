@@ -46,7 +46,7 @@ flux create tenant data \
 
 flux create source git data \
 --namespace=data \
---url=ssh://git@github.com/mfamador/gitops-demo-tenant-data \
+--url=https://github.com/mfamador/gitops-demo-tenant-data \
 --secret-ref=data \
 --branch=main \
 --export > ./tenants/base/data/sync.yaml
@@ -71,7 +71,7 @@ flux create tenant core \
 
 flux create source git core \
 --namespace=core \
---url=ssh://git@github.com/mfamador/gitops-demo-tenant-core \
+--url=https://github.com/mfamador/gitops-demo-tenant-core \
 --secret-ref=core \
 --branch=main \
 --export > ./tenants/base/core/sync.yaml

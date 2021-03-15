@@ -10,7 +10,7 @@ spec:
     branch: main
   secretRef:
     name: data
-  url: ssh://git@github.com/mfamador/gitops-demo-tenant-data
+  url: https://github.com/mfamador/gitops-demo-tenant-data
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
