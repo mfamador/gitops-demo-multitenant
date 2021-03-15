@@ -10,5 +10,6 @@ resources:
 # - prometheus.yaml
 - prometheus-adapter.yaml
 - prometheus-stack.yaml
+- promtail.yaml
 - tempo.yaml
 - thanos.yaml
