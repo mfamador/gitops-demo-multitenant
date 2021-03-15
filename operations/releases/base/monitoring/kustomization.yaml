@@ -3,9 +3,9 @@ kind: Kustomization
 namespace: monitoring
 resources:
 - namespace.yaml
-#- alertmanager.yaml
-# - gatekeeper.yaml
+# - alertmanager.yaml
 - grafana.yaml
+# - gatekeeper.yaml
 - loki.yaml
 # - prometheus.yaml
 - prometheus-adapter.yaml
