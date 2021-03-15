@@ -9,7 +9,7 @@ _For the original example see [flux2-multi-tenancy](https://github.com/fluxcd/fl
 ---
 # Bootstrap 
 
-## 1. Bootstrap gitops repo
+## 1. Bootstrap gitops repo, staing environament, north europe region
 ```bash
 k3d cluster create -p 8080:80@loadbalancer --agents 4 --k3s-server-arg "--no-deploy=traefik"
 
@@ -48,7 +48,7 @@ flux create tenant data \
 # create the tenant's git source
 flux create source git data \
 --namespace=data \
---url=ssh://git@github.com/mfamador/gitops-demo-tenant-data.git \
+--url=ssh://git@github.com/mfamador/gitops-demo-tenant-data \
 --branch=main
 ```
 
@@ -58,7 +58,7 @@ flux create source git data \
 ```bash
 flux create source git data \
 --namespace=data \
---url=ssh://git@github.com/mfamador/gitops-demo-tenant-data.git \
+--url=ssh://git@github.com/mfamador/gitops-demo-tenant-data \
 --branch=main \
 --export > ./tenants/base/data/sync.yaml
 ```
@@ -87,7 +87,7 @@ flux create tenant core \
 # create the tenant's git source
 flux create source git core \
 --namespace=core \
---url=ssh://git@github.com/mfamador/gitops-demo-tenant-core.git \
+--url=ssh://git@github.com/mfamador/gitops-demo-tenant-core \
 --branch=main
 ```
 
@@ -97,7 +97,7 @@ flux create source git core \
 ```bash
 flux create source git core \
 --namespace=core \
---url=ssh://git@github.com/mfamador/gitops-demo-tenant-core.git \
+--url=ssh://git@github.com/mfamador/gitops-demo-tenant-core \
 --branch=main \
 --export > ./tenants/base/core/sync.yaml
 ```
