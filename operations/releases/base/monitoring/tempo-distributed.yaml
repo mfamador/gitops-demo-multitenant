@@ -21,3 +21,5 @@ spec:
       storageClassName: default
     traces:
       zipkin: true
+      jaeger:
+        thriftCompact: true
