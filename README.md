@@ -75,3 +75,42 @@ flux create kustomization data \
 --export >> ./tenants/base/data/sync.yaml
 ```
 
+## 3. Create `core` tenant
+
+### 3.1. Create source
+```bash
+flux create tenant core \
+--label=istio-injection=enabled \
+--with-namespace=core \
+--export > ./tenants/base/data/rbac.yaml
+
+# create the tenant's git source
+flux create source git core \
+--namespace=core \
+--url=ssh://git@github.com/mfamador/gitops-demo-tenant-core.git \
+--branch=main
+```
+
+### 3.2. Retrieve ssh deploy key and add it to tenant's repo
+
+### 3.3. Generate tenant git source:
+```bash
+flux create source git core \
+--namespace=core \
+--url=ssh://git@github.com/mfamador/gitops-demo-tenant-core.git \
+--branch=main \
+--export > ./tenants/base/core/sync.yaml
+```
+
+### 3.4. Append `Kustomization`
+```bash
+flux create kustomization core \
+ --namespace=core \
+ --source=core \
+ --service-account=core \
+ --path="./" \
+ --prune=true \
+ --interval=5m \
+--export >> ./tenants/base/core/sync.yaml
+```
+
