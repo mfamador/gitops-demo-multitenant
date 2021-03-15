@@ -3,6 +3,7 @@ apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: GitRepository
 metadata:
   name: core
+  namespace: core
 spec:
   interval: 1m0s
   ref:
@@ -13,10 +14,12 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
 metadata:
   name: core
+  namespace: flux-system
 spec:
-  serviceAccountName: core
   interval: 5m0s
+  path: ./
   prune: true
+  serviceAccountName: core
   sourceRef:
     kind: GitRepository
     name: core
