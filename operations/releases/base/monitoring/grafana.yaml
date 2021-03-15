@@ -46,6 +46,18 @@ spec:
       datasources.yaml:
         apiVersion: 1
         datasources:
+        - name: Loki
+          type: loki
+          access: proxy
+          uid: loki_ds
+          url: http://loki-loki-distributed-querier.monitoring:3100
+          jsonData:
+            maxLines: 1000
+            derivedFields:
+            - datasourceUid: tempo_ds
+              matcherRegex: "traceID=(\\w+)"
+              name: TraceID
+              url: "$${__value.raw}"
         #    - name: Thanos
         #      type: prometheus
         #      access: proxy
@@ -67,18 +79,6 @@ spec:
     #      access: proxy
     #      uid: tempo_ds
     #      url: http://tempo-tempo-distributed-query-frontend.monitoring:16686
-        - name: Loki
-          type: loki
-          access: proxy
-          uid: loki_ds
-          url: http://loki-loki-distributed-querier.monitoring:3100
-          jsonData:
-            maxLines: 1000
-            derivedFields:
-            - datasourceUid: tempo_ds
-              matcherRegex: "traceID=(\\w+)"
-              name: TraceID
-              url: "$${__value.raw}"
 #    - name: Alertmanager
 #      type: camptocamp-prometheus-alertmanager-datasource
 #      access: proxy
