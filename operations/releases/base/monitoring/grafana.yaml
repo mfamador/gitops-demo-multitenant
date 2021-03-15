@@ -49,21 +49,21 @@ spec:
     #      uid: thanos_ds
     #      url: http://thanos-query-http.monitoring:10902
     #      isDefault: true
-    - name: Prometheus
-      type: prometheus
-      access: proxy
-      uid: prometheus_ds
-      url: http://prometheus-operated.monitoring:9090
-    - name: IstioPrometheus
-      type: prometheus
-      access: proxy
-      uid: istio_prometheus_ds
-      url: http://prometheus-operated.istio-system:9090
-    - name: Tempo
-      type: tempo
-      access: proxy
-      uid: tempo_ds
-      url: http://tempo-tempo-distributed-query-frontend.monitoring:16686
+#    - name: Prometheus
+#      type: prometheus
+#      access: proxy
+#      uid: prometheus_ds
+#      url: http://prometheus-operated.monitoring:9090
+#    - name: IstioPrometheus
+#      type: prometheus
+#      access: proxy
+#      uid: istio_prometheus_ds
+#      url: http://prometheus-operated.istio-system:9090
+#    - name: Tempo
+#      type: tempo
+#      access: proxy
+#      uid: tempo_ds
+#      url: http://tempo-tempo-distributed-query-frontend.monitoring:16686
     - name: Loki
       type: loki
       access: proxy
@@ -76,16 +76,16 @@ spec:
           matcherRegex: "traceID=(\\w+)"
           name: TraceID
           url: "$${__value.raw}"
-    - name: Alertmanager
-      type: camptocamp-prometheus-alertmanager-datasource
-      access: proxy
-      uid: alertmanager_ds
-      url: http://alertmanager-operated.monitoring:9093
-      jsonData:
-        severity_critical: critical
-        severity_high: error
-        severity_warning: warning
-        severity_info: information
+#    - name: Alertmanager
+#      type: camptocamp-prometheus-alertmanager-datasource
+#      access: proxy
+#      uid: alertmanager_ds
+#      url: http://alertmanager-operated.monitoring:9093
+#      jsonData:
+#        severity_critical: critical
+#        severity_high: error
+#        severity_warning: warning
+#        severity_info: information
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
