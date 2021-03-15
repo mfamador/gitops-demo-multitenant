@@ -18,3 +18,132 @@ spec:
       retries: 3
   values:
     adminPassword: strongpassword
+    sidecar:
+      datasources:
+        defaultDatasourceEnabled: false
+        createPrometheusReplicasDatasources: false
+    persistence:
+      type: statefulset
+      # FIXME set to true
+      enabled: false
+      storageClassName: default
+      accessModes:
+      - ReadWriteOnce
+      size: 10Gi
+      finalizers:
+      - kubernetes.io/pvc-protection
+    podLabels:
+      app: grafana
+    service:
+      labels:
+        app: grafana
+    serviceMonitor:
+      enabled: true
+      interval: 30s
+      labels:
+        tier: cluster
+    additionalDataSources:
+    #    - name: Thanos
+    #      type: prometheus
+    #      access: proxy
+    #      uid: thanos_ds
+    #      url: http://thanos-query-http.monitoring:10902
+    #      isDefault: true
+    - name: Prometheus
+      type: prometheus
+      access: proxy
+      uid: prometheus_ds
+      url: http://prometheus-operated.monitoring:9090
+    - name: IstioPrometheus
+      type: prometheus
+      access: proxy
+      uid: istio_prometheus_ds
+      url: http://prometheus-operated.istio-system:9090
+    - name: Tempo
+      type: tempo
+      access: proxy
+      uid: tempo_ds
+      url: http://tempo-tempo-distributed-query-frontend.monitoring:16686
+    - name: Loki
+      type: loki
+      access: proxy
+      uid: loki_ds
+      url: http://loki-loki-distributed-querier.monitoring:3100
+      jsonData:
+        maxLines: 1000
+        derivedFields:
+        - datasourceUid: tempo_ds
+          matcherRegex: "traceID=(\\w+)"
+          name: TraceID
+          url: "$${__value.raw}"
+    - name: Alertmanager
+      type: camptocamp-prometheus-alertmanager-datasource
+      access: proxy
+      uid: alertmanager_ds
+      url: http://alertmanager-operated.monitoring:9093
+      jsonData:
+        severity_critical: critical
+        severity_high: error
+        severity_warning: warning
+        severity_info: information
+    dashboardProviders:
+      dashboardproviders.yaml:
+        apiVersion: 1
+        providers:
+        - name: 'default'
+          orgId: 1
+          folder: ''
+          type: file
+          disableDeletion: true
+          editable: false
+          options:
+            path: /var/lib/grafana/dashboards/default
+        - name: 'istio'
+          orgId: 1
+          folder: 'Istio'
+          type: file
+          disableDeletion: true
+          editable: false
+          options:
+            path: /var/lib/grafana/dashboards/istio
+    plugins:
+    - grafana-worldmap-panel
+    - grafana-clock-panel
+    - grafana-piechart-panel
+    - grafana-kubernetes-app
+    - camptocamp-prometheus-alertmanager-datasource
+    dashboards:
+      default:
+        weave-flux:
+          gnetId: 10475
+          revision: 1
+          datasource: Thanos
+        logging-loki:
+          gnetId: 12611
+          revision: 1
+          datasource: Loki
+        alertmanager-stats:
+          gnetId: 9578
+          revision: 4
+          datasource: Thanos
+      istio:
+        istio-workload:
+          gnetId: 7630
+          revision: 2
+          datasource: IstioPrometheus
+        istio-mesh:
+          gnetId: 7639
+          revision: 2
+          datasource: IstioPrometheus
+        istio-service:
+          gnetId: 7636
+          revision: 2
+          datasource: IstioPrometheus
+        istio-control-plane:
+          gnetId: 7645
+          revision: 2
+          datasource: IstioPrometheus
+        istio-performance:
+          gnetId: 11829
+          revision: 2
+          datasource: IstioPrometheus
