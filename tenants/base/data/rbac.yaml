@@ -4,8 +4,8 @@ kind: Namespace
 metadata:
   labels:
     istio-injection: enabled
-    toolkit.fluxcd.io/tenant: core
-  name: core
+    toolkit.fluxcd.io/tenant: data
+  name: data
 
 ---
 apiVersion: v1
@@ -13,9 +13,9 @@ kind: ServiceAccount
 metadata:
   labels:
     istio-injection: enabled
-    toolkit.fluxcd.io/tenant: core
-  name: core
-  namespace: core
+    toolkit.fluxcd.io/tenant: data
+  name: data
+  namespace: data
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -23,9 +23,9 @@ kind: RoleBinding
 metadata:
   labels:
     istio-injection: enabled
-    toolkit.fluxcd.io/tenant: core
-  name: core-reconciler
-  namespace: core
+    toolkit.fluxcd.io/tenant: data
+  name: data-reconciler
+  namespace: data
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -33,8 +33,8 @@ roleRef:
 subjects:
 - apiGroup: rbac.authorization.k8s.io
   kind: User
-  name: gotk:core:reconciler
+  name: gotk:data:reconciler
 - kind: ServiceAccount
-  name: core
-  namespace: core
+  name: data
+  namespace: data
 
