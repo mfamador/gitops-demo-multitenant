@@ -19,7 +19,6 @@ export GITHUB_REPO=gitops-demo-multitenant
 
 flux bootstrap github \
 --components-extra=image-reflector-controller,image-automation-controller \
---context=k3d-k3s-default \
 --owner=${GITHUB_USER} \
 --repository=${GITHUB_REPO} \
 --branch=main \
