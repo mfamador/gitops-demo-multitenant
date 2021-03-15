@@ -23,7 +23,8 @@ flux bootstrap github \
 --repository=${GITHUB_REPO} \
 --branch=main \
 --personal \
---path=clusters/staging/northeurope
+--path=clusters/staging/northeurope \
+--token-auth
 ```
 
 
@@ -37,36 +38,19 @@ https://github.com/mfamador/gitops-demo-tenant-data
 
 ## 2. Create `data` tenant
 
-### 2.1. Create source
 ```bash
 flux create tenant data \
 --label=istio-injection=enabled \
 --with-namespace=data \
 --export > ./tenants/base/data/rbac.yaml
 
-# create the tenant's git source to get SSH key
 flux create source git data \
 --namespace=data \
 --url=ssh://git@github.com/mfamador/gitops-demo-tenant-data \
---branch=main
-```
-
-### 2.2. Retrieve ssh deploy key and
-
-Add the deploy key to tenant's repo deploys key
-IMPORTANT: for image automation add write permission check box
-
-### 2.3. Generate tenant git source:
-```bash
-flux create source git data \
---namespace=data \
---url=ssh://git@github.com/mfamador/gitops-demo-tenant-data \
+--secret-ref=data \
 --branch=main \
 --export > ./tenants/base/data/sync.yaml
-```
 
-### 2.4. Append `Kustomization`
-```bash
 flux create kustomization data \
 --namespace=data \
 --source=data \
@@ -79,36 +63,19 @@ flux create kustomization data \
 
 ## 3. Create `core` tenant
 
-### 3.1. Create source
 ```bash
 flux create tenant core \
 --label=istio-injection=enabled \
 --with-namespace=core \
 --export > ./tenants/base/data/rbac.yaml
 
-# create the tenant's git source to get SSH key
 flux create source git core \
 --namespace=core \
 --url=ssh://git@github.com/mfamador/gitops-demo-tenant-core \
---branch=main
-```
-
-### 3.2. Retrieve ssh deploy key and 
-
-Add the deploy key to tenant's repo deploys key
-IMPORTANT: for image automation add write permission check box
-
-### 3.3. Generate tenant git source:
-```bash
-flux create source git core \
---namespace=core \
---url=ssh://git@github.com/mfamador/gitops-demo-tenant-core \
+--secret-ref=core \
 --branch=main \
 --export > ./tenants/base/core/sync.yaml
-```
 
-### 3.4. Append `Kustomization`
-```bash
 flux create kustomization core \
  --namespace=core \
  --source=core \
