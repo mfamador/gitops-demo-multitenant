@@ -42,7 +42,7 @@ spec:
       interval: 30s
       labels:
         tier: cluster
-    additionalDataSources:
+    dataSources:
     #    - name: Thanos
     #      type: prometheus
     #      access: proxy
