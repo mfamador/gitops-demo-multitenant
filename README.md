@@ -68,12 +68,12 @@ flux create source git data \
 ### 2.4. Append `Kustomization`
 ```bash
 flux create kustomization data \
- --namespace=data \
- --source=data \
- --service-account=data \
- --path="./" \
- --prune=true \
- --interval=5m \
+--namespace=data \
+--source=data \
+--service-account=data \
+--path="./" \
+--prune=true \
+--interval=5m \
 --export >> ./tenants/base/data/sync.yaml
 ```
 
