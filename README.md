@@ -67,7 +67,7 @@ flux create kustomization data \
 flux create tenant core \
 --label=istio-injection=enabled \
 --with-namespace=core \
---export > ./tenants/base/data/rbac.yaml
+--export > ./tenants/base/core/rbac.yaml
 
 flux create source git core \
 --namespace=core \
