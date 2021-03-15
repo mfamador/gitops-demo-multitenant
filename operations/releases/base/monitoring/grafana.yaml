@@ -17,6 +17,7 @@ spec:
     remediation:
       retries: 3
   values:
+    # FIXME remove
     adminPassword: strongpassword
     sidecar:
       datasources:
