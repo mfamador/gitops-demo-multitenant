@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: kyverno-policies
+    - name: operations-manifests
   interval: 5m
   sourceRef:
     kind: GitRepository

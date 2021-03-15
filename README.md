@@ -7,11 +7,11 @@
 _For the original example see [flux2-multi-tenancy](https://github.com/fluxcd/flux2-multi-tenancy)._
 
 ---
+# Bootstrap 
 
-# Scenario
-
+## 1. Bootstrap gitops repo
 ```bash
-k3d cluster create -p 8080:80@loadbalancer --agents 3 --k3s-server-arg "--no-deploy=traefik"
+k3d cluster create -p 8080:80@loadbalancer --agents 4 --k3s-server-arg "--no-deploy=traefik"
 
 export GIT_ACCESS_TOKEN=<REDACTED>
 export GITHUB_USER=<YOUR_GITHUB_USER>
@@ -23,10 +23,10 @@ flux bootstrap github \
 --repository=${GITHUB_REPO} \
 --branch=main \
 --personal \
---path=clusters/staging/northeurope \
---token-auth
-
+--path=clusters/staging/northeurope
+#--token-auth
 ```
+
 
 ### Tenant's repos
 
@@ -36,41 +36,42 @@ https://github.com/mfamador/gitops-demo-tenant-core
 
 https://github.com/mfamador/gitops-demo-tenant-data
 
-## Create `data` tenant
+## 2. Create `data` tenant
 
+### 2.1. Create source
 ```bash
-flux create tenant data --with-namespace=core \
+flux create tenant data \
+--label=istio-injection=enabled \
+--with-namespace=data \
 --export > ./tenants/base/data/rbac.yaml
 
 # create the tenant's git source
 flux create source git data \
 --namespace=data \
---url=https://github.com/mfamador/gitops-demo-tenant-data \
+--url=ssh://git@github.com/mfamador/gitops-demo-tenant-data.git \
 --branch=main
-
-# create the tenant's git source
-flux create source git core \
---namespace=core \
---url=https://github.com/mfamador/gitops-demo-tenant-data \
---branch=main
-
-# export the config to tenant folder
-flux create source git data \
---url=https://github.com/mfamador/gitops-demo-tenant-data \
---branch=main \
---secret-ref=data \
---export > ./tenants/base/data/sync.yaml
-
-IMPORTANT: 
-add serviceAccountName: data
-and create secret from flux-system secret
-
-flux create kustomization data \
---source=data \
---path="./staging/northeurope" \
---prune=true \
---interval=5m \
---export >> ./tenants/base/data/sync.yaml
-
-
 ```
+
+### 2.2. Retrieve ssh deploy key and add it to tenant's repo
+
+### 2.3. Generate tenant git source:
+```bash
+flux create source git data \
+--namespace=data \
+--url=ssh://git@github.com/mfamador/gitops-demo-tenant-data.git \
+--branch=main \
+--export > ./tenants/base/data/sync.yaml
+```
+
+### 2.4. Append `Kustomization`
+```bash
+flux create kustomization data \
+ --namespace=data \
+ --source=data \
+ --service-account=data \
+ --path="./" \
+ --prune=true \
+ --interval=5m \
+--export >> ./tenants/base/data/sync.yaml
+```
+

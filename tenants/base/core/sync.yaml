@@ -7,10 +7,7 @@ spec:
   interval: 1m0s
   ref:
     branch: main
-  secretRef:
-    name: core
-  url: https://github.com/mfamador/gitops-demo-tenant-core
-
+  url: ssh://git@github.com/mfamador/gitops-demo-tenant-core.git
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
@@ -23,4 +20,3 @@ spec:
   sourceRef:
     kind: GitRepository
     name: core
-
