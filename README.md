@@ -47,8 +47,13 @@ flux create tenant data --with-namespace=core \
 flux create source git data \
 --namespace=data \
 --url=https://github.com/mfamador/gitops-demo-tenant-data \
---branch=main \
---secret-ref=data
+--branch=main
+
+# create the tenant's git source
+flux create source git core \
+--namespace=core \
+--url=https://github.com/mfamador/gitops-demo-tenant-data \
+--branch=main
 
 # export the config to tenant folder
 flux create source git data \

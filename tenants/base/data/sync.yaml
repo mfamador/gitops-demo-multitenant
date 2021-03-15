@@ -7,8 +7,8 @@ spec:
   interval: 1m0s
   ref:
     branch: main
-  secretRef:
-    name: data
+#  secretRef:
+#    name: data
   url: https://github.com/mfamador/gitops-demo-tenant-data
 
 ---
