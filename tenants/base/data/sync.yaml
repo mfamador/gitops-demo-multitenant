@@ -23,4 +23,3 @@ spec:
   sourceRef:
     kind: GitRepository
     name: data
-
