@@ -9,7 +9,7 @@ _For the original example see [flux2-multi-tenancy](https://github.com/fluxcd/fl
 ---
 # Bootstrap 
 
-## 1. Bootstrap gitops repo, staing environament, north europe region
+## 1. Bootstrap gitops repo, staging environament, north europe region
 ```bash
 k3d cluster create -p 8080:80@loadbalancer --agents 4 --k3s-server-arg "--no-deploy=traefik"
 
@@ -24,7 +24,6 @@ flux bootstrap github \
 --branch=main \
 --personal \
 --path=clusters/staging/northeurope
-#--token-auth
 ```
 
 
