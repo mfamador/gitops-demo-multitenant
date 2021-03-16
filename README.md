@@ -27,6 +27,9 @@ flux bootstrap github \
 --token-auth
 ```
 
+## 2 Wait for the `tenants` Kustomization to reconcile
+
+## 3. Setup tenants
 
 ### Tenant's repos
 
@@ -36,14 +39,21 @@ https://github.com/mfamador/gitops-demo-tenant-core
 
 https://github.com/mfamador/gitops-demo-tenant-data
 
-## 2. Create `data` tenant
+
+### 3.1 Create `data` tenant
+
+### 3.1.1 Setup RBAC
 
 ```bash
 flux create tenant data \
 --label=istio-injection=enabled \
 --with-namespace=data \
 --export > ./tenants/base/data/rbac.yaml
+```
 
+### 3.1.2 Setup git source and Kustomization
+
+```bash
 flux create source git data \
 --namespace=data \
 --url=https://github.com/mfamador/gitops-demo-tenant-data \
@@ -61,14 +71,29 @@ flux create kustomization data \
 --export >> ./tenants/base/data/sync.yaml
 ```
 
-## 3. Create `core` tenant
+### 3.1.3 Setup `data` secret
+
+`❯ kubectl get secret -n flux-system flux-system -oyaml > data-secret.yaml`
+
+Rename the secret and namespace to `data` and remove the managed and other fields.
+
+`❯ kubectl apply -f data-secret.yaml`
+
+
+### 3.2 Create `core` tenant
+
+### 3.2.1 Setup RBAC
 
 ```bash
 flux create tenant core \
 --label=istio-injection=enabled \
 --with-namespace=core \
 --export > ./tenants/base/core/rbac.yaml
+```
 
+### 3.2.2 Setup git source and Kustomization
+
+```bash
 flux create source git core \
 --namespace=core \
 --url=https://github.com/mfamador/gitops-demo-tenant-core \
@@ -77,12 +102,19 @@ flux create source git core \
 --export > ./tenants/base/core/sync.yaml
 
 flux create kustomization core \
- --namespace=core \
- --source=core \
- --service-account=core \
- --path="./" \
- --prune=true \
- --interval=5m \
+--namespace=core \
+--source=core \
+--service-account=core \
+--path="./" \
+--prune=true \
+--interval=5m \
 --export >> ./tenants/base/core/sync.yaml
 ```
 
+### 3.2.3 Setup `core` secret
+
+`❯ kubectl get secret -n flux-system flux-system -oyaml > core-secret.yaml`
+
+Rename the secret and namespace to `core` and remove the managed and other fields.
+
+`❯ kubectl apply -f core-secret.yaml`
