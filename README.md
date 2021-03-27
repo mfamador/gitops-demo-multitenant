@@ -6,6 +6,83 @@
 
 _For the original example see [flux2-multi-tenancy](https://github.com/fluxcd/flux2-multi-tenancy)._
 
+
+# Scenario
+
+For this example we assume a scenario with two clusters: staging and production, both having multiple regions each. The
+end goal is to leverage Flux and Kustomize to manage both clusters while minimizing duplicated declarations.
+
+## Prerequisites
+
+You will need a Kubernetes cluster version 1.16 or newer and kubectl version 1.18. For a quick local test, you can
+use [Kubernetes kind](https://kind.sigs.k8s.io/docs/user/quick-start/) or
+[k3d](https://k3d.io/#installation). Any other Kubernetes setup will work as well though.
+
+In order to follow the guide you'll need a GitHub account and a
+[personal access token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line)
+that can create repositories (check all permissions under `repo`).
+
+Install the Flux CLI on MacOS and Linux using Homebrew:
+
+```sh
+brew install fluxcd/tap/flux
+```
+
+Or install the CLI by downloading precompiled binaries using a Bash script:
+
+```sh
+curl -s https://toolkit.fluxcd.io/install.sh | sudo bash
+```
+
+## Repository structure
+
+The Git repository contains the following top directories:
+
+- **clusters/** dir contains Helm releases with a custom configuration per cluster
+- **clusters** dir contains the Flux configuration per cluster
+
+```
+├── clusters
+│   ├── production
+│   │   ├── northeurope
+│   │   │   └── flux-system
+│   │   └── westeurope
+│   │       └── flux-system
+│   └── staging
+│       ├── northeurope
+│       │   └── flux-system
+│       └── westeurope
+│           └── flux-system
+├── operations
+│   ├── production
+│   │   ├── northeurope
+│   │   └── westeurope
+│   └── staging
+│       ├── northeurope
+│       └── westeurope
+└── tenants
+    ├── production
+    │   ├── northeurope
+    │   │   ├── tenant-core.yaml
+    │   │   └── tenant-data.yaml
+    │   └── westeurope
+    │       ├── tenant-core.yaml
+    │       └── tenant-data.yaml
+    └── staging
+        ├── northeurope
+        │   ├── tenant-core.yaml
+        │   └── tenant-data.yaml
+        └── westeurope
+            ├── tenant-core.yaml
+            └── tenant-data.yaml
+        
+```
+
+The clusters' configuration is structured into:
+
+- **clusters/production/** dir contains the production Helm release values
+- **clusters/staging/** dir contains the staging values
+
 ---
 # Bootstrap 
 
