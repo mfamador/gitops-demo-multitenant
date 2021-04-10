@@ -23,11 +23,6 @@ spec:
       name: http2
       number: 80
       protocol: HTTP
-    tls:
-      httpsRedirect: true
-  - hosts:
-    - "*.staging.eun"
-    port:
-      name: tcp
-      number: 4767
-      protocol: TCP
+#    tls:
+#      httpsRedirect: true
+
