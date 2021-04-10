@@ -11,7 +11,7 @@ spec:
         kind: HelmRepository
         name: grafana
         namespace: flux-system
-      version: "6.7.3"
+      version: "6.6.3"
   interval: 1h0m0s
   install:
     remediation:
@@ -56,7 +56,7 @@ spec:
           type: loki
           access: proxy
           uid: loki_ds
-          url: http://loki-loki-distributed-querier.monitoring:3100
+          url: http://loki-loki-distributed-gateway.monitoring:80
           jsonData:
             maxLines: 1000
             derivedFields:
