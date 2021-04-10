@@ -1,0 +1,32 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: istio-ingressgw
+spec:
+  selector:
+    app: istio-ingressgateway
+    istio: ingressgateway
+  servers:
+#  - hosts:
+#    - "*.staging.eun"
+#    port:
+#      name: https2
+#      number: 443
+#      protocol: HTTPS
+#    tls:
+#      mode: SIMPLE
+#      credentialName: "istio-ingressgateway-certs" # must be the same as secret
+  - hosts:
+    - "*.staging.eun"
+    port:
+      name: http2
+      number: 80
+      protocol: HTTP
+    tls:
+      httpsRedirect: true
+  - hosts:
+    - "*.staging.eun"
+    port:
+      name: tcp
+      number: 4767
+      protocol: TCP
