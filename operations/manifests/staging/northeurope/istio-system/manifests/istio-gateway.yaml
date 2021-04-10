@@ -11,18 +11,6 @@ spec:
   - hosts:
     - "*.staging.eun"
     port:
-      name: https2
-      number: 443
-      protocol: HTTPS
-    tls:
-      mode: SIMPLE
-      credentialName: "istio-ingressgateway-certs" # must be the same as secret
-  - hosts:
-    - "*.staging.eun"
-    port:
       name: http2
       number: 80
       protocol: HTTP
-#    tls:
-#      httpsRedirect: true
-

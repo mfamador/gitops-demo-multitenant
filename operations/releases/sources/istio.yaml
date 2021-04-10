@@ -7,3 +7,4 @@ spec:
   url: https://github.com/istio/istio
   ref:
     branch: master
+    tag: 1.9.2
