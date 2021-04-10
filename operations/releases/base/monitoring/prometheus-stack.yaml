@@ -24,3 +24,18 @@ spec:
       tier: cluster
     grafana:
       enabled: false
+    prometheus:
+      prometheusSpec:
+        scrapeInterval: 15s
+        scrapeTimeout: 10s
+        evaluationInterval: 15s
+        retention: 40d
+        ruleSelector:
+          matchLabels:
+            tier: cluster
+        serviceMonitorSelector:
+          matchLabels:
+            tier: cluster
+        podMonitorSelector:
+          matchLabels:
+            tier: cluster
