@@ -11,7 +11,7 @@ spec:
         kind: HelmRepository
         name: grafana
         namespace: flux-system
-      version: "6.6.3"
+      version: "6.7.3"
   interval: 1h0m0s
   install:
     remediation:
@@ -69,6 +69,7 @@ spec:
           access: proxy
           uid: prometheus_ds
           url: http://prometheus-operated.monitoring:9090
+          isDefault: true
         - name: IstioPrometheus
           type: prometheus
           access: proxy
