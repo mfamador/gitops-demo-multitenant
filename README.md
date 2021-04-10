@@ -90,7 +90,7 @@ The clusters' configuration is structured into:
 ```bash
 k3d cluster create -p 8080:80@loadbalancer --agents 4 --k3s-server-arg "--no-deploy=traefik"
 
-export GIT_ACCESS_TOKEN=<REDACTED>
+export GITHUB_TOKEN=<REDACTED>
 export GITHUB_USER=<YOUR_GITHUB_USER>
 export GITHUB_REPO=gitops-demo-multitenant
 
