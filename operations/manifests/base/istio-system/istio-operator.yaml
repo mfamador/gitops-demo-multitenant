@@ -5,7 +5,7 @@ metadata:
   name: istio-profile
 spec:
   hub: docker.io/istio
-  tag: 1.9.1
+  tag: 1.9.2
   profile: default
   meshConfig:
     accessLogFile: /dev/stdout
