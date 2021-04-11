@@ -5,15 +5,15 @@ metadata:
   name: thanos-query-vs
 spec:
   gateways:
-    - istio-system/gateway
+  - istio-system/istio-ingressgw
   hosts:
-    - thanos.demo.lab
+  - thanos.production.eun
   http:
-    - match:
-        - uri:
-            prefix: /
-      route:
-        - destination:
-            port:
-              number: 10902
-            host: thanos-query-http.observability.svc.cluster.local
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        port:
+          number: 10902
+        host: thanos-query-http.observability.svc.cluster.local

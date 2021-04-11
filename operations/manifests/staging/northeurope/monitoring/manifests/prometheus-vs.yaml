@@ -5,15 +5,15 @@ metadata:
   name: prometheus-vs
 spec:
   gateways:
-    - istio-system/gateway
+  - istio-system/istio-ingressgw
   hosts:
-    - prometheus.demo.lab
+  - prometheus.staging.eun
   http:
-    - match:
-        - uri:
-            prefix: /
-      route:
-        - destination:
-            port:
-              number: 9090
-            host: prometheus-operated.observability.svc.cluster.local
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        port:
+          number: 9090
+        host: prometheus-operated.observability.svc.cluster.local
