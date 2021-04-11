@@ -17,5 +17,5 @@ spec:
       retries: 3
   values:
     hub: "docker.io/istio"
-    tag: "1.9.2"
+    tag: "1.9.1"
 
