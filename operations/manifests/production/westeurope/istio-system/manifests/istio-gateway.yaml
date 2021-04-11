@@ -1,0 +1,55 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: istio-ingressgw
+spec:
+  selector:
+    app: istio-ingressgateway
+    istio: ingressgateway
+  servers:
+  - hosts:
+    - "*.production.euw"
+    port:
+      name: http2
+      number: 80
+      protocol: HTTP
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: istio-ingressgw
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - hosts:
+    - "grafana.production.euw"
+    - "alertmanager.demo.lab"
+    - "prometheus.production.euw"
+    - "thanos.demo.lab"
+    - "istio-prometheus.production.euw"
+    - "kiali.production.euw"
+    - "tracing.production.euw"
+    port:
+      name: http
+      number: 80
+      protocol: HTTP
+    tls:
+      httpsRedirect: true
+  - hosts:
+    - "grafana.production.euw"
+    - "alertmanager.demo.lab"
+    - "prometheus.production.euw"
+    - "thanos.demo.lab"
+    - "istio-prometheus.production.euw"
+    - "kiali.production.euw"
+    - "tracing.production.euw"
+    port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: ingress-cert # This should match the Certificate secretName

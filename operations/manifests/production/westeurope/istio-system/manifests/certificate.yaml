@@ -1,0 +1,20 @@
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: ingress-cert
+spec:
+  secretName: ingress-cert
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
+  dnsNames:
+    - "grafana.production.euw"
+    - "alertmanager.demo.lab"
+    - "prometheus.production.euw"
+    - "thanos.demo.lab"
+    - "istio-prometheus.production.euw"
+    - "kiali.production.euw"
+    - "tracing.production.euw"
+  # Issuer references are always required.
+  issuerRef:
+    name: selfsigned-issuer
