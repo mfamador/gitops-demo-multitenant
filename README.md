@@ -25,7 +25,7 @@ that can create repositories (check all permissions under `repo`).
 Install the Flux CLI on MacOS and Linux using Homebrew:
 
 ```sh
-brew install fluxcd/tap/flux
+brew install flux
 ```
 
 Or install the CLI by downloading precompiled binaries using a Bash script:
