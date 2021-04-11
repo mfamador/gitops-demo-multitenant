@@ -1,20 +1,3 @@
-apiVersion: networking.istio.io/v1beta1
-kind: Gateway
-metadata:
-  name: istio-ingressgw
-spec:
-  selector:
-    app: istio-ingressgateway
-    istio: ingressgateway
-  servers:
-  - hosts:
-    - "*.staging.eun"
-    port:
-      name: http2
-      number: 80
-      protocol: HTTP
-
----
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
