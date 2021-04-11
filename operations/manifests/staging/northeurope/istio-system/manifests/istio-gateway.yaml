@@ -8,13 +8,17 @@ spec:
     istio: ingressgateway
   servers:
   - hosts:
-    - "grafana.staging.eun"
-    - "alertmanager.demo.lab"
-    - "prometheus.staging.eun"
-    - "thanos.demo.lab"
-    - "istio-prometheus.staging.eun"
-    - "kiali.staging.eun"
-    - "tracing.staging.eun"
+    - "*.staging.eun"
+#    - "grafana.staging.eun"
+#    - "alertmanager.demo.lab"
+#    - "prometheus.staging.eun"
+#    - "thanos.demo.lab"
+#    - "istio-prometheus.staging.eun"
+#    - "kiali.staging.eun"
+#    - "tracing.staging.eun"
+#    - "critical.staging.eun"
+#    - "hello.staging.eun"
+#    - "echo.staging.eun"
     port:
       name: http
       number: 80
@@ -22,13 +26,7 @@ spec:
     tls:
       httpsRedirect: true
   - hosts:
-    - "grafana.staging.eun"
-    - "alertmanager.demo.lab"
-    - "prometheus.staging.eun"
-    - "thanos.demo.lab"
-    - "istio-prometheus.staging.eun"
-    - "kiali.staging.eun"
-    - "tracing.staging.eun"
+    - "*.staging.eun"
     port:
       number: 443
       name: https
