@@ -16,4 +16,4 @@ spec:
     - destination:
         port:
           number: 80
-        host: kube-prometheus-stack-grafana.observability.svc.cluster.local
+        host: grafana.monitoring.svc.cluster.local
