@@ -8,4 +8,5 @@ resources:
 - grafana.yaml
 - istio.yaml
 - jetstack.yaml
+- kiali.yaml
 - prometheus-community.yaml
