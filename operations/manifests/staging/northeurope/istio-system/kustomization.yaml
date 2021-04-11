@@ -3,4 +3,5 @@ kind: Kustomization
 bases:
 - ../../base/istio-system
 resources:
+- manifests/certificate.yaml
 - manifests/istio-gateway.yaml

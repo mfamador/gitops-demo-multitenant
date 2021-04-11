@@ -2,12 +2,13 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: istio-system
 resources:
+- dnsutils.yaml
 - external-requests-filter.yaml
 - flagger-metrics.yaml
 - flagger-rules.yaml
 - gzip.yaml
+- issuer.yaml
 - istio-federation.yaml
-- istio-gateway.yaml
 - istio-operator.yaml
 - istio-prometheus.yaml
 - istio-rules.yaml
