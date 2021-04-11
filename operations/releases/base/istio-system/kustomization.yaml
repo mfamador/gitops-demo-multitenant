@@ -7,3 +7,4 @@ resources:
 - flagger-loadtester.yaml
 - istio-base.yaml
 - istio-operator.yaml
+- kiali-operator.yaml
