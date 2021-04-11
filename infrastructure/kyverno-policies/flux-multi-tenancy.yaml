@@ -9,6 +9,7 @@ spec:
       exclude:
         resources:
           namespaces:
+            - cert-manager
             - flux-system
             - monitoring
             - istio-system
