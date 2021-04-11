@@ -18,3 +18,5 @@ spec:
       retries: 3
   values:
     installCRDs: true
+    extraArgs:
+    - --enable-certificate-owner-ref=true
