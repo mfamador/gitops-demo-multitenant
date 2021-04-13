@@ -8,7 +8,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/kyverno
+  path: ./policies/kyverno
   prune: true
   validation: client
   healthChecks:
@@ -29,6 +29,6 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/kyverno-policies
+  path: ./policies/kyverno-policies
   prune: true
   validation: client
