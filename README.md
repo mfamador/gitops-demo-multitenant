@@ -103,6 +103,13 @@ flux bootstrap github \
 --token-auth
 ```
 
+```bash
+# or just generate the manifests
+flux install \
+     --components-extra=image-reflector-controller,image-automation-controller \
+     --export > ./clusters/staging/northeurope/flux-system/gotk-components.yaml
+```
+
 ## 2 Wait for the `tenants` Kustomization to reconcile
 
 ## 3. Setup tenants
