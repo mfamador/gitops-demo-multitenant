@@ -11,7 +11,7 @@ spec:
         kind: HelmRepository
         name: grafana
         namespace: flux-system
-      version: "0.29.0"
+      version: "0.31.3"
   interval: 1h0m0s
   install:
     remediation:
