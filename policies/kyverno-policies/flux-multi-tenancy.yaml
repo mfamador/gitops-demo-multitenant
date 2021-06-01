@@ -31,7 +31,6 @@ spec:
             - flux-system
             - monitoring
             - istio-system
-            - nginx
       match:
         resources:
           kinds:
