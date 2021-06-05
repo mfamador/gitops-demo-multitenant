@@ -23,3 +23,6 @@ spec:
       zipkin: true
       jaeger:
         thriftCompact: true
+      otlp:
+        http: true
+        grpc: true
