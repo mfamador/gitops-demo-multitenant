@@ -11,13 +11,17 @@ spec:
         kind: HelmRepository
         name: grafana
         namespace: flux-system
-      # version: "6.11.0"
-      version: "6.6.3"
+      version: "6.11.0"
   interval: 1h0m0s
   install:
     remediation:
       retries: 3
   values:
+    ## FXIME starting grafana 7.5 we're getting
+    ## "failed to convert tempo response to Otlp: proto: ExportTraceServiceRequest: wiretype end group for non-group"
+    ## from data source Tempo
+    image:
+      tag: 7.4.5
     # FIXME remove
     adminPassword: strongpassword
     sidecar:
