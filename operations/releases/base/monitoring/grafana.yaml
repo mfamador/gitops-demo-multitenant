@@ -11,7 +11,7 @@ spec:
         kind: HelmRepository
         name: grafana
         namespace: flux-system
-      version: "6.9.2"
+      version: "6.11.0"
   interval: 1h0m0s
   install:
     remediation:
@@ -25,7 +25,6 @@ spec:
         createPrometheusReplicasDatasources: false
     persistence:
       type: statefulset
-      # FIXME set to true
       enabled: false
       storageClassName: default
       accessModes:

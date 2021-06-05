@@ -107,7 +107,17 @@ flux bootstrap github \
 # or just generate the manifests
 flux install \
      --components-extra=image-reflector-controller,image-automation-controller \
-     --export > ./clusters/staging/northeurope/flux-system/gotk-components.yaml
+     --export > ./clusters/staging/northeurope/flux-system/gotk-components.yaml 
+      
+# generate for all environments
+flux install \
+     --components-extra=image-reflector-controller,image-automation-controller \
+     --export | tee \
+      ./clusters/staging/northeurope/flux-system/gotk-components.yaml \
+      ./clusters/staging/westeurope/flux-system/gotk-components.yaml \
+      ./clusters/production/northeurope/flux-system/gotk-components.yaml \
+      ./clusters/production/westeurope/flux-system/gotk-components.yaml
+     
 ```
 
 ## 2 Wait for the `tenants` Kustomization to reconcile
