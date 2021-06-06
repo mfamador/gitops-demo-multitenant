@@ -17,11 +17,6 @@ spec:
     remediation:
       retries: 3
   values:
-    ## FXIME starting grafana 7.5 we're getting
-    ## "failed to convert tempo response to Otlp: proto: ExportTraceServiceRequest: wiretype end group for non-group"
-    ## from data source Tempo
-    image:
-      tag: 7.4.5
     # FIXME remove
     adminPassword: strongpassword
     sidecar:
@@ -55,7 +50,7 @@ spec:
           type: tempo
           access: proxy
           uid: tempo_ds
-          url: http://tempo-tempo-distributed-query-frontend.monitoring:16686
+          url: http://tempo-tempo-distributed-query-frontend.monitoring:3100
         - name: Loki
           type: loki
           access: proxy
