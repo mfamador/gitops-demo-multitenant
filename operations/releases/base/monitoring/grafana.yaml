@@ -55,7 +55,7 @@ spec:
           type: loki
           access: proxy
           uid: loki_ds
-          url: http://loki-loki-distributed-gateway.monitoring:80
+          url: http://loki-loki-distributed-query-frontend.monitoring:3100
           jsonData:
             maxLines: 1000
             derivedFields:
