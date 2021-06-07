@@ -164,8 +164,8 @@ kind: Service
 metadata:
   name: prometheus
   labels:
-    app: prometheus
     tier: istio
+    app.kubernetes.io/name: prometheus
 spec:
   ports:
   - name: web
