@@ -12,7 +12,7 @@ spec:
     - istio-system
   selector:
     matchLabels:
-      app: prometheus
+      app.kubernetes.io/name: prometheus
   endpoints:
   - interval: 30s
     scrapeTimeout: 30s
