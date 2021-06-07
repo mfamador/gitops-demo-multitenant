@@ -133,21 +133,21 @@ spec:
       istio:
         istio-workload:
           gnetId: 7630
-          revision: 2
-          datasource: IstioPrometheus
+          revision: 68
+          datasource: Prometheus
         istio-mesh:
           gnetId: 7639
-          revision: 2
-          datasource: IstioPrometheus
+          revision: 68
+          datasource: Prometheus
         istio-service:
           gnetId: 7636
-          revision: 2
-          datasource: IstioPrometheus
+          revision: 68
+          datasource: Prometheus
         istio-control-plane:
           gnetId: 7645
-          revision: 2
-          datasource: IstioPrometheus
+          revision: 68
+          datasource: Prometheus
         istio-performance:
           gnetId: 11829
-          revision: 2
-          datasource: IstioPrometheus
+          revision: 68
+          datasource: Prometheus
