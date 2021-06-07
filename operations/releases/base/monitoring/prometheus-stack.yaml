@@ -11,7 +11,8 @@ spec:
         kind: HelmRepository
         name: prometheus-community
         namespace: flux-system
-      version: "16.1.2"
+      ## LOOK AT https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack#upgrading-an-existing-release-to-a-new-major-version
+      version: 16.3.1
   interval: 1h0m0s
   timeout: 30m
   install:
