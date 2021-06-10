@@ -11,7 +11,7 @@ spec:
         kind: HelmRepository
         name: grafana
         namespace: flux-system
-      version: "0.9.7"
+      version: "0.9.8"
   interval: 1h0m0s
   install:
     remediation:
@@ -26,3 +26,8 @@ spec:
       otlp:
         http: true
         grpc: true
+    serviceMonitor:
+      enabled: true
+      interval: "15s"
+      labels:
+        tier: cluster

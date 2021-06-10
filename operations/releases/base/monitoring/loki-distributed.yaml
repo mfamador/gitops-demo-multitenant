@@ -11,8 +11,13 @@ spec:
         kind: HelmRepository
         name: grafana
         namespace: flux-system
-      version: "0.31.3"
+      version: "0.33.0"
   interval: 1h0m0s
   install:
     remediation:
       retries: 3
+    serviceMonitor:
+      enabled: true
+      interval: "15s"
+      labels:
+        tier: cluster
