@@ -6,7 +6,7 @@ metadata:
   namespace: istio-system
 spec:
   hub: "docker.io/istio"
-  tag: "1.9.4"
+  tag: "1.10.1"
   profile: default
   components:
     pilot:

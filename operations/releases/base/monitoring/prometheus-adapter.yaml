@@ -17,7 +17,45 @@ spec:
     remediation:
       retries: 3
   values:
+    resources:
+      requests:
+        cpu: 5m
+        memory: 80Mi
+      limits:
+        # CPU limits commented because of CPU throttling
+        # cpu: 10m
+        memory: 128Mi
     rules:
       default: false
-    prometheus:
-      url: http://prometheus-operated.monitoring.svc.cluster.local
+      # CUSTOM METRICS
+      # HTTP REQUESTS TOTAL
+      custom:
+      - seriesQuery: 'istio_requests_total{destination_workload_namespace!="",pod!="",source_cluster="Kubernetes",destination_cluster="Kubernetes"}'
+        resources:
+          overrides:
+            destination_workload_namespace: { resource: "namespace" }
+            pod: { resource: "pod" }
+        name:
+          matches: "^(.*)_total"
+          as: "${1}_per_second"
+        metricsQuery: sum(rate(<<.Series>>{<<.LabelMatchers>>}[2m])) by (<<.GroupBy>>)
+      ## HTTP REQUESTS DURATION
+      - seriesQuery: 'istio_request_duration_milliseconds_sum{destination_workload_namespace!="",pod!="",source_cluster="Kubernetes",destination_cluster="Kubernetes"}'
+        resources:
+          overrides:
+            destination_workload_namespace: { resource: "namespace" }
+            pod: { resource: "pod" }
+        name:
+          matches: "^(.*)_sum"
+          as: "${1}_avg"
+        metricsQuery: avg(rate(<<.Series>>{<<.LabelMatchers>>}[2m])) by (<<.GroupBy>>)
+      # EXTERNAL CUSTOM METRICS
+      # CONSUMER LAG GIVEN BY BENTHOS
+      external:
+      - seriesQuery: 'benthos_kafka__consumergroup__group__lag'
+        metricsQuery: sum(rate(<<.Series>>{<<.LabelMatchers>>}[1m])) by (group, topic)
+        resources:
+          overrides: { namespace: {resource: "namespace"} }
+        name:
+          as: "kafka_consumergroup_lag"
+
