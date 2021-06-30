@@ -26,7 +26,7 @@ spec:
           type: LoadBalancer
     egressGateways:
     - name: istio-egressgateway
-      enabled: true
+      enabled: false
       k8s:
         hpaSpec:
           minReplicas: 2
