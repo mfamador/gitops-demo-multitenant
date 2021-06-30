@@ -1,6 +1,3 @@
----
-# Flux version: v0.15.3
-# Components: source-controller,kustomize-controller,helm-controller,notification-controller,image-reflector-controller,image-automation-controller
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -5019,4 +5016,3 @@ spec:
       app: notification-controller
   policyTypes:
   - Ingress
----
