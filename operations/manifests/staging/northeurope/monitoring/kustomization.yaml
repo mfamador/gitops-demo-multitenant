@@ -4,7 +4,7 @@ namespace: monitoring
 bases:
 - ../../base/monitoring
 resources:
-- manifests/alertmanager-vs.yaml
-- manifests/grafana-vs.yaml
-- manifests/prometheus-vs.yaml
-- manifests/thanos-query-vs.yaml
+- alertmanager-vs.yaml
+- grafana-vs.yaml
+- prometheus-vs.yaml
+- thanos-query-vs.yaml

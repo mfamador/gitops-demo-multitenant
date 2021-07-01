@@ -4,6 +4,8 @@ metadata:
   name: operations-releases
   namespace: flux-system
 spec:
+  dependsOn:
+  - name: kyverno-policies
   interval: 10m0
   sourceRef:
     kind: GitRepository

@@ -4,5 +4,5 @@ namespace: istio-system
 bases:
 - ../../base/istio-system
 resources:
-- manifests/certificate.yaml
-- manifests/istio-gateway.yaml
+- certificate.yaml
+- istio-gateway.yaml
