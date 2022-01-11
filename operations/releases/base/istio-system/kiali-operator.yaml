@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: kiali
         namespace: flux-system
-      version: "1.35.0"
+      version: "1.43.0"
   interval: 1h0m0s
   install:
     remediation:
@@ -20,3 +20,47 @@ spec:
   values:
     cr:
       create: true
+      name: kiali
+      namespace: "istio-system"
+      spec:
+        auth:
+          strategy: "anonymous"
+        deployment:
+          ingress_enabled: false
+          view_only_mode: true
+          accessible_namespaces:
+          - '**'
+        istio_namespace: istio-system
+        external_services:
+          istio:
+            component_status:
+              enabled: true
+              components:
+              - app_label: istiod
+                is_core: true
+              - app_label: istio-ingressgateway
+                is_core: true
+              - app_label: istio-egressgateway
+                is_core: false
+            config_map_name: "istio"
+            istio_identity_domain: "svc.cluster.local"
+            istio_injection_annotation: "sidecar.istio.io/inject"
+            istio_sidecar_annotation: "sidecar.istio.io/status"
+            url_service_version: ""
+          prometheus:
+            url: "http://prometheus-operated.istio-system.svc.cluster.local:9090"
+          grafana:
+            enabled: false
+            auth:
+              insecure_skip_verify: true
+              type: "none"
+            in_cluster_url: "http://kube-prometheus-stack-grafana.monitoring.svc.cluster.local:80"
+            url: ""
+          tracing:
+            enabled: false
+            auth:
+              insecure_skip_verify: true
+              type: "none"
+            # in_cluster_url: "http://tempo-tempo-distributed-query-frontend.monitoring:3100"  #FIXME
+            # Kiali operator only supports jaeger backend as of now: https://github.com/kiali/kiali-operator/blob/master/deploy/kiali/kiali_cr.yaml#L616
+            in_cluster_url: ""

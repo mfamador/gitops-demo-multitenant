@@ -7,6 +7,7 @@ resources:
 - gatekeeper.yaml
 - grafana.yaml
 - istio.yaml
+- istio-git.yaml
 - jetstack.yaml
 - kiali.yaml
 - prometheus-community.yaml

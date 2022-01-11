@@ -15,3 +15,6 @@ spec:
   install:
     remediation:
       retries: 3
+  values:
+    hub: "docker.io/istio"
+    tag: "1.12.1"

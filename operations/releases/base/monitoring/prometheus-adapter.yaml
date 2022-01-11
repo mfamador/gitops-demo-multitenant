@@ -11,7 +11,7 @@ spec:
         kind: HelmRepository
         name: prometheus-community
         namespace: flux-system
-      version: "2.14.1"
+      version: "3.0.0"
   interval: 1h0m0s
   install:
     remediation:
@@ -25,16 +25,20 @@ spec:
         # CPU limits commented because of CPU throttling
         # cpu: 10m
         memory: 128Mi
+    ## RULES
     rules:
       default: false
+
       # CUSTOM METRICS
       # HTTP REQUESTS TOTAL
       custom:
       - seriesQuery: 'istio_requests_total{destination_workload_namespace!="",pod!="",source_cluster="Kubernetes",destination_cluster="Kubernetes"}'
         resources:
           overrides:
-            destination_workload_namespace: { resource: "namespace" }
-            pod: { resource: "pod" }
+            destination_workload_namespace:
+              resource: "namespace"
+            pod:
+              resource: "pod"
         name:
           matches: "^(.*)_total"
           as: "${1}_per_second"
@@ -43,19 +47,38 @@ spec:
       - seriesQuery: 'istio_request_duration_milliseconds_sum{destination_workload_namespace!="",pod!="",source_cluster="Kubernetes",destination_cluster="Kubernetes"}'
         resources:
           overrides:
-            destination_workload_namespace: { resource: "namespace" }
-            pod: { resource: "pod" }
+            destination_workload_namespace:
+              resource: "namespace"
+            pod:
+              resource: "pod"
         name:
           matches: "^(.*)_sum"
           as: "${1}_avg"
         metricsQuery: avg(rate(<<.Series>>{<<.LabelMatchers>>}[2m])) by (<<.GroupBy>>)
+
       # EXTERNAL CUSTOM METRICS
-      # CONSUMER LAG GIVEN BY BENTHOS
+      # CONSUMER LAG BR KAFKA-EXOIRTER
       external:
-      - seriesQuery: 'benthos_kafka__consumergroup__group__lag'
-        metricsQuery: sum(rate(<<.Series>>{<<.LabelMatchers>>}[1m])) by (group, topic)
+      - seriesQuery: 'kafka_consumergroup_lag_sum'
+        metricsQuery: sum(<<.Series>>{<<.LabelMatchers>>}) by (consumergroup, topic)
         resources:
-          overrides: { namespace: {resource: "namespace"} }
+          overrides:
+            namespace:
+              resource: "namespace"
+          # setting `namespaced` to false we can get these metrics from any namespace
+          namespaced: false
         name:
           as: "kafka_consumergroup_lag"
 
+      ## MESSAGE LAG CALCULATED ON BENTHOS PIPELINES
+      ## TODO add storage-queue-exporter metrics here
+      - seriesQuery: 'benthos_storage__queue__message__lag'
+        metricsQuery: sum(<<.Series>>{<<.LabelMatchers>>}) by (queue)
+        resources:
+          overrides:
+            namespace:
+              resource: "namespace"
+          # setting `namespaced` to false we can get these metrics from any namespace
+          namespaced: false
+        name:
+          as: "storage_queue_message_lag"
