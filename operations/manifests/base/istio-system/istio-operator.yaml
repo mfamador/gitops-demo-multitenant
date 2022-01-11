@@ -3,30 +3,40 @@ apiVersion: install.istio.io/v1alpha1
 kind: IstioOperator
 metadata:
   name: istio-profile
-  namespace: istio-system
 spec:
-  hub: "docker.io/istio"
-  tag: "1.10.1"
   profile: default
+  hub: "docker.io/istio"
+  tag: "1.12.1"
+  values:
+    telemetry:
+      v2:
+        prometheus:
+          configOverride:
+            inboundSidecar:
+              disable_host_header_fallback: true
+            outboundSidecar:
+              disable_host_header_fallback: true
+            gateway:
+              disable_host_header_fallback: true
+  meshConfig:
+    accessLogFile: /dev/stdout
+    accessLogEncoding: JSON
+    enableTracing: false
+    defaultConfig:
+      # Avoid some pods failing on startup for not having network connectivity
+      holdApplicationUntilProxyStarts: true
+      tracing:
+        sampling: 10.0
+        zipkin:
+          address: tempo-tempo-distributed-distributor.monitoring.svc.cluster.local:9411
   components:
     pilot:
       enabled: true
-      k8s:
-        hpaSpec:
-          minReplicas: 2
     cni:
       enabled: false
     ingressGateways:
-    - name: istio-ingressgateway
-      enabled: true
-      k8s:
-        hpaSpec:
-          minReplicas: 2
-        service:
-          type: LoadBalancer
+    # IngressGateways are patched in trough terraform
     egressGateways:
     - name: istio-egressgateway
       enabled: false
-      k8s:
-        hpaSpec:
-          minReplicas: 2
+
