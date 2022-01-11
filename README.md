@@ -87,7 +87,7 @@ The clusters' configuration is structured into:
 
 ## 1. Bootstrap gitops repo, staging environament, north europe region
 ```bash
-k3d cluster create -p 8080:80@loadbalancer --agents 4 --k3s-server-arg "--no-deploy=traefik"
+k3d cluster create -p 8080:80@loadbalancer --agents 4 --k3s-arg "--disable=traefik@server:0"
 
 export GITHUB_TOKEN=<REDACTED>
 export GITHUB_USER=<YOUR_GITHUB_USER>
