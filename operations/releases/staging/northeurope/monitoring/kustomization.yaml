@@ -3,4 +3,4 @@ kind: Kustomization
 bases:
 - ../../../base/monitoring
 patchesStrategicMerge:
-- tempo-patch.yaml
+- tempo-distributed-patch.yaml

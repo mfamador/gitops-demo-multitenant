@@ -7,7 +7,7 @@ resources:
 # - gatekeeper.yaml
 - loki-distributed.yaml
 - prometheus-adapter.yaml
-- prometheus-stack.yaml
+- kube-prometheus-stack.yaml
 - promtail.yaml
 - tempo-distributed.yaml
 - thanos.yaml
