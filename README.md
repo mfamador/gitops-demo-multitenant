@@ -1,7 +1,6 @@
 # GitOps Workflow with Flux v2 - Multi-Tenancy
 
 [![test](https://github.com/mfamador/gitops-demo-multitenant/actions/workflows/test.yaml/badge.svg)](https://github.com/mfamador/gitops-demo-multitenant/actions/workflows/test.yaml)
-[![e2e](https://github.com/mfamador/gitops-demo-multitenant/actions/workflows/e2e.yaml/badge.svg)](https://github.com/mfamador/gitops-demo-multitenant/actions/workflows/e2e.yaml)
 
 _For the original example see [flux2-multi-tenancy](https://github.com/fluxcd/flux2-multi-tenancy)._
 
