@@ -68,13 +68,6 @@ spec:
     - name: alertmanager-operated
       namespace: monitoring
       port: web
-  resources:
-    limits:
-      cpu: 4
-      memory: 14Gi
-    requests:
-      cpu: 2
-      memory: 10Gi
   enableAdminAPI: false
   evaluationInterval: 15s
   listenLocal: false
