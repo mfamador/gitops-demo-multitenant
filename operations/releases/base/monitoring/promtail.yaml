@@ -19,13 +19,3 @@ spec:
   values:
     config:
       lokiAddress: http://loki-loki-distributed-gateway.monitoring/loki/api/v1/push
-    tolerations:
-    - key: CriticalAddonsOnly
-      operator: Exists
-      effect: NoSchedule
-    - key: kubernetes.azure.com/scalesetpriority
-      operator: Exists
-      effect: NoSchedule
-    - key: node-role.kubernetes.io/master
-      operator: Exists
-      effect: NoSchedule

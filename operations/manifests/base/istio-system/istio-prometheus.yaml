@@ -87,19 +87,6 @@ spec:
   podMonitorSelector:
     matchLabels:
       tier: istio
-  tolerations:
-  - key: CriticalAddonsOnly
-    operator: Exists
-    effect: NoSchedule
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: agentpool
-            operator: In
-            values:
-            - system
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
