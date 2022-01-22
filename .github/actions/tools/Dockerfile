@@ -1,8 +1,6 @@
-FROM alpine:latest
-
-RUN apk add --no-cache ca-certificates curl bash tar jq
+FROM stefanprodan/alpine-base:latest
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
-
+USER 1001
 ENTRYPOINT ["/entrypoint.sh"]

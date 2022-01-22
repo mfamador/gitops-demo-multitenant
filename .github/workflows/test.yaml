@@ -15,4 +15,4 @@ jobs:
     - name: Setup tools
       uses: ./.github/actions/tools
     - name: Validate manifests
-      run: ./_scripts/validate.sh
+      run: ./scripts/validate.sh
