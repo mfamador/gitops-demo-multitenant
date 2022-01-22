@@ -1,0 +1,33 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    app: prometheus
+    tier: cluster
+  name: flux-rules
+spec:
+  groups:
+  - name: GitOpsToolkit
+    rules:
+    - alert: ReconciliationFailure
+      expr: max(gotk_reconcile_condition{status="False",type="Ready"}) by (namespace, name, kind) + on(namespace, name, kind) (max(gotk_reconcile_condition{status="Deleted"}) by (namespace, name, kind)) * 2 == 1
+      for: 10m
+      labels:
+        severity: warning
+      annotations:
+        summary: '{{ $labels.kind }} {{ $labels.namespace }}/{{ $labels.name }} reconciliation has been failing for more than ten minutes.'
+    - alert: GitRepositoryControllerFailed
+      expr: sum(increase(controller_runtime_reconcile_total{controller="gitrepository",result!="error"}[1m])) == 0
+      for: 10m
+      labels:
+        severity: warning
+      annotations:
+        summary: '{{ $labels.namespace }}/{{ $labels.pod }} gitrepository controller  have been failing for more than ten minutes.'
+    - alert: KustomizationControllerFailed
+      expr: sum(increase(controller_runtime_reconcile_total{controller="kustomization",result!="error"}[1m])) == 0
+      for: 10m
+      labels:
+        severity: warning
+      annotations:
+        summary: '{{ $labels.namespace }}/{{ $labels.pod }} kustomization controller have been failing for more than ten minutes.'
