@@ -30,7 +30,7 @@ jobs:
         flux create kustomization flux-system \
         --interval=15m \
         --source=flux-system \
-        --path=./clusters/staging
+        --path=./clusters/staging/northeurope
     - name: Verify cluster reconciliation
       run: |
         kubectl -n flux-system wait kustomization/kyverno --for=condition=ready --timeout=1m
