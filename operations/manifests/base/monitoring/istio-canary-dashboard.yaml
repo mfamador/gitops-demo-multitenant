@@ -24,12 +24,18 @@ data:
       "editable": true,
       "gnetId": null,
       "graphTooltip": 0,
-      "id": 1,
-      "iteration": 1549736611069,
+      "id": 42,
+      "iteration": 1622455624520,
       "links": [],
       "panels": [
         {
-          "content": "<div class=\"dashboard-header text-center\">\n<span>RED: $canary.$namespace</span>\n</div>",
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
           "gridPos": {
             "h": 3,
             "w": 24,
@@ -38,7 +44,11 @@ data:
           },
           "id": 89,
           "links": [],
-          "mode": "html",
+          "options": {
+            "content": "<div class=\"dashboard-header text-center\">\n<span>RED: $canary.$namespace</span>\n</div>",
+            "mode": "html"
+          },
+          "pluginVersion": "7.3.7",
           "title": "",
           "transparent": true,
           "type": "text"
@@ -53,6 +63,12 @@ data:
             "rgba(50, 172, 45, 0.97)"
           ],
           "datasource": "IstioPrometheus",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
           "format": "ops",
           "gauge": {
             "maxValue": 100,
@@ -113,7 +129,6 @@ data:
           ],
           "thresholds": "",
           "title": "Primary: Incoming Request Volume",
-          "transparent": false,
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -136,6 +151,12 @@ data:
           ],
           "datasource": "IstioPrometheus",
           "decimals": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
           "format": "percentunit",
           "gauge": {
             "maxValue": 100,
@@ -195,7 +216,6 @@ data:
           ],
           "thresholds": "95, 99, 99.5",
           "title": "Incoming Success Rate",
-          "transparent": false,
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -217,6 +237,12 @@ data:
             "rgba(50, 172, 45, 0.97)"
           ],
           "datasource": "IstioPrometheus",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
           "format": "ops",
           "gauge": {
             "maxValue": 100,
@@ -277,7 +303,6 @@ data:
           ],
           "thresholds": "",
           "title": "Canary: Incoming Request Volume",
-          "transparent": false,
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -300,6 +325,12 @@ data:
           ],
           "datasource": "IstioPrometheus",
           "decimals": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
           "format": "percentunit",
           "gauge": {
             "maxValue": 100,
@@ -359,7 +390,6 @@ data:
           ],
           "thresholds": "95, 99, 99.5",
           "title": "Incoming Success Rate",
-          "transparent": false,
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -377,13 +407,21 @@ data:
           "dashLength": 10,
           "dashes": false,
           "datasource": "IstioPrometheus",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 4,
             "w": 12,
             "x": 0,
             "y": 7
           },
+          "hiddenSeries": false,
           "id": 96,
           "legend": {
             "alignAsTable": false,
@@ -402,7 +440,11 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -412,7 +454,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "histogram_quantile(0.50, sum(irate(istio_request_duration_seconds_bucket{reporter=\"destination\",destination_workload=~\"$primary\", destination_workload_namespace=~\"$namespace\"}[1m])) by (le))",
+              "expr": "histogram_quantile(0.50, sum(irate(istio_request_duration_milliseconds_bucket{reporter=\"destination\",destination_workload=~\"$primary\", destination_workload_namespace=~\"$namespace\"}[1m])) by (le))",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -420,7 +462,7 @@ data:
               "refId": "A"
             },
             {
-              "expr": "histogram_quantile(0.90, sum(irate(istio_request_duration_seconds_bucket{reporter=\"destination\",destination_workload=~\"$primary\", destination_workload_namespace=~\"$namespace\"}[1m])) by (le))",
+              "expr": "histogram_quantile(0.90, sum(irate(istio_request_duration_milliseconds_bucket{reporter=\"destination\",destination_workload=~\"$primary\", destination_workload_namespace=~\"$namespace\"}[1m])) by (le))",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -428,7 +470,7 @@ data:
               "refId": "B"
             },
             {
-              "expr": "histogram_quantile(0.99, sum(irate(istio_request_duration_seconds_bucket{reporter=\"destination\",destination_workload=~\"$primary\", destination_workload_namespace=~\"$namespace\"}[1m])) by (le))",
+              "expr": "histogram_quantile(0.99, sum(irate(istio_request_duration_milliseconds_bucket{reporter=\"destination\",destination_workload=~\"$primary\", destination_workload_namespace=~\"$namespace\"}[1m])) by (le))",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -483,13 +525,21 @@ data:
           "dashLength": 10,
           "dashes": false,
           "datasource": "IstioPrometheus",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 4,
             "w": 12,
             "x": 12,
             "y": 7
           },
+          "hiddenSeries": false,
           "id": 91,
           "legend": {
             "alignAsTable": false,
@@ -508,7 +558,11 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -518,7 +572,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "histogram_quantile(0.50, sum(irate(istio_request_duration_seconds_bucket{reporter=\"destination\",destination_workload=~\"$canary\", destination_workload_namespace=~\"$namespace\"}[1m])) by (le))",
+              "expr": "histogram_quantile(0.50, sum(irate(istio_request_duration_milliseconds_bucket{reporter=\"destination\",destination_workload=~\"$canary\", destination_workload_namespace=~\"$namespace\"}[1m])) by (le))",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -526,7 +580,7 @@ data:
               "refId": "A"
             },
             {
-              "expr": "histogram_quantile(0.90, sum(irate(istio_request_duration_seconds_bucket{reporter=\"destination\",destination_workload=~\"$canary\", destination_workload_namespace=~\"$namespace\"}[1m])) by (le))",
+              "expr": "histogram_quantile(0.90, sum(irate(istio_request_duration_milliseconds_bucket{reporter=\"destination\",destination_workload=~\"$canary\", destination_workload_namespace=~\"$namespace\"}[1m])) by (le))",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -534,7 +588,7 @@ data:
               "refId": "B"
             },
             {
-              "expr": "histogram_quantile(0.99, sum(irate(istio_request_duration_seconds_bucket{reporter=\"destination\",destination_workload=~\"$canary\", destination_workload_namespace=~\"$namespace\"}[1m])) by (le))",
+              "expr": "histogram_quantile(0.99, sum(irate(istio_request_duration_milliseconds_bucket{reporter=\"destination\",destination_workload=~\"$canary\", destination_workload_namespace=~\"$namespace\"}[1m])) by (le))",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -584,7 +638,13 @@ data:
           }
         },
         {
-          "content": "<div class=\"dashboard-header text-center\">\n<span>USE: $canary.$namespace</span>\n</div>",
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
           "gridPos": {
             "h": 3,
             "w": 24,
@@ -593,7 +653,11 @@ data:
           },
           "id": 101,
           "links": [],
-          "mode": "html",
+          "options": {
+            "content": "<div class=\"dashboard-header text-center\">\n<span>USE: $canary.$namespace</span>\n</div>",
+            "mode": "html"
+          },
+          "pluginVersion": "7.3.7",
           "title": "",
           "transparent": true,
           "type": "text"
@@ -603,14 +667,22 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "IstioPrometheus",
+          "datasource": "Prometheus",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 6,
             "w": 12,
             "x": 0,
             "y": 14
           },
+          "hiddenSeries": false,
           "id": 100,
           "legend": {
             "alignAsTable": false,
@@ -629,7 +701,11 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -639,11 +715,11 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(container_cpu_usage_seconds_total{cpu=\"total\",namespace=\"$namespace\",pod_name=~\"$primary.*\", container_name!~\"POD|istio-proxy\"}[1m])) by (pod_name)",
+              "expr": "sum(rate(container_cpu_usage_seconds_total{cpu=\"total\",namespace=\"$namespace\",pod=~\"$primary.*\", container!~\"POD|istio-proxy\"}[1m])) by (pod)",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
-              "legendFormat": "{{ pod_name }}",
+              "legendFormat": "{{ pod }}",
               "refId": "B"
             }
           ],
@@ -693,14 +769,22 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "IstioPrometheus",
+          "datasource": "Prometheus",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 6,
             "w": 12,
             "x": 12,
             "y": 14
           },
+          "hiddenSeries": false,
           "id": 102,
           "legend": {
             "alignAsTable": false,
@@ -719,7 +803,11 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -729,11 +817,11 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(container_cpu_usage_seconds_total{cpu=\"total\",namespace=\"$namespace\",pod_name=~\"$canary.*\", pod_name!~\"$primary.*\", container_name!~\"POD|istio-proxy\"}[1m])) by (pod_name)",
+              "expr": "sum(rate(container_cpu_usage_seconds_total{cpu=\"total\",namespace=\"$namespace\",pod=~\"$canary.*\", pod!~\"$primary.*\", container!~\"POD|istio-proxy\"}[1m])) by (pod)",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
-              "legendFormat": "{{ pod_name }}",
+              "legendFormat": "{{ pod }}",
               "refId": "B"
             }
           ],
@@ -783,14 +871,22 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "IstioPrometheus",
+          "datasource": "Prometheus",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 6,
             "w": 12,
             "x": 0,
             "y": 20
           },
+          "hiddenSeries": false,
           "id": 103,
           "legend": {
             "alignAsTable": false,
@@ -809,7 +905,11 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -819,12 +919,12 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod_name=~\"$primary.*\", container_name!~\"POD|istio-proxy\"}) by (pod_name)",
+              "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$primary.*\", container!~\"POD|istio-proxy\"}) by (pod)",
               "format": "time_series",
               "hide": false,
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "{{ pod_name }}",
+              "legendFormat": "{{ pod }}",
               "refId": "B"
             }
           ],
@@ -875,14 +975,22 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "IstioPrometheus",
+          "datasource": "Prometheus",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 6,
             "w": 12,
             "x": 12,
             "y": 20
           },
+          "hiddenSeries": false,
           "id": 104,
           "legend": {
             "alignAsTable": false,
@@ -901,7 +1009,11 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -911,12 +1023,12 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod_name=~\"$canary.*\", pod_name!~\"$primary.*\", container_name!~\"POD|istio-proxy\"}) by (pod_name)",
+              "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$canary.*\", pod!~\"$primary.*\", container!~\"POD|istio-proxy\"}) by (pod)",
               "format": "time_series",
               "hide": false,
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "{{ pod_name }}",
+              "legendFormat": "{{ pod }}",
               "refId": "B"
             }
           ],
@@ -967,14 +1079,22 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "IstioPrometheus",
+          "datasource": "Prometheus",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 6,
             "w": 12,
             "x": 0,
             "y": 26
           },
+          "hiddenSeries": false,
           "id": 105,
           "legend": {
             "alignAsTable": false,
@@ -993,7 +1113,11 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1012,14 +1136,14 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate (container_network_receive_bytes_total{namespace=\"$namespace\",pod_name=~\"$primary.*\"}[1m])) ",
+              "expr": "sum(rate (container_network_receive_bytes_total{namespace=\"$namespace\",pod=~\"$primary.*\"}[1m])) ",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "received",
               "refId": "A"
             },
             {
-              "expr": "-sum (rate (container_network_transmit_bytes_total{namespace=\"$namespace\",pod_name=~\"$primary.*\"}[1m]))",
+              "expr": "-sum (rate (container_network_transmit_bytes_total{namespace=\"$namespace\",pod=~\"$primary.*\"}[1m]))",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "transmited",
@@ -1073,14 +1197,22 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "IstioPrometheus",
+          "datasource": "Prometheus",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 6,
             "w": 12,
             "x": 12,
             "y": 26
           },
+          "hiddenSeries": false,
           "id": 106,
           "legend": {
             "alignAsTable": false,
@@ -1099,7 +1231,11 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1118,14 +1254,14 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate (container_network_receive_bytes_total{namespace=\"$namespace\",pod_name=~\"$canary.*\",pod_name!~\"$primary.*\"}[1m])) ",
+              "expr": "sum(rate (container_network_receive_bytes_total{namespace=\"$namespace\",pod=~\"$canary.*\",pod!~\"$primary.*\"}[1m])) ",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "received",
               "refId": "A"
             },
             {
-              "expr": "-sum (rate (container_network_transmit_bytes_total{namespace=\"$namespace\",pod_name=~\"$canary.*\",pod_name!~\"$primary.*\"}[1m]))",
+              "expr": "-sum (rate (container_network_transmit_bytes_total{namespace=\"$namespace\",pod=~\"$canary.*\",pod!~\"$primary.*\"}[1m]))",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "transmited",
@@ -1175,7 +1311,13 @@ data:
           }
         },
         {
-          "content": "<div class=\"dashboard-header text-center\">\n<span>IN/OUTBOUND: $canary.$namespace</span>\n</div>",
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
           "gridPos": {
             "h": 3,
             "w": 24,
@@ -1184,7 +1326,11 @@ data:
           },
           "id": 45,
           "links": [],
-          "mode": "html",
+          "options": {
+            "content": "<div class=\"dashboard-header text-center\">\n<span>IN/OUTBOUND: $canary.$namespace</span>\n</div>",
+            "mode": "html"
+          },
+          "pluginVersion": "7.3.7",
           "title": "",
           "transparent": true,
           "type": "text"
@@ -1195,13 +1341,21 @@ data:
           "dashLength": 10,
           "dashes": false,
           "datasource": "IstioPrometheus",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
           "fill": 0,
+          "fillGradient": 0,
           "gridPos": {
             "h": 6,
             "w": 12,
             "x": 0,
             "y": 35
           },
+          "hiddenSeries": false,
           "id": 25,
           "legend": {
             "avg": false,
@@ -1217,7 +1371,11 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null as zero",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1294,13 +1452,21 @@ data:
           "dashLength": 10,
           "dashes": false,
           "datasource": "IstioPrometheus",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
           "fill": 0,
+          "fillGradient": 0,
           "gridPos": {
             "h": 6,
             "w": 12,
             "x": 12,
             "y": 35
           },
+          "hiddenSeries": false,
           "id": 92,
           "legend": {
             "avg": false,
@@ -1316,7 +1482,11 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null as zero",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1393,13 +1563,21 @@ data:
           "dashLength": 10,
           "dashes": false,
           "datasource": "IstioPrometheus",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
           "fill": 0,
+          "fillGradient": 0,
           "gridPos": {
             "h": 6,
             "w": 12,
             "x": 0,
             "y": 41
           },
+          "hiddenSeries": false,
           "id": 70,
           "legend": {
             "avg": false,
@@ -1415,7 +1593,11 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null as zero",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1491,13 +1673,21 @@ data:
           "dashLength": 10,
           "dashes": false,
           "datasource": "IstioPrometheus",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
           "fill": 0,
+          "fillGradient": 0,
           "gridPos": {
             "h": 6,
             "w": 12,
             "x": 12,
             "y": 41
           },
+          "hiddenSeries": false,
           "id": 94,
           "legend": {
             "avg": false,
@@ -1513,7 +1703,11 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null as zero",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1585,16 +1779,21 @@ data:
         }
       ],
       "refresh": "10s",
-      "schemaVersion": 16,
+      "schemaVersion": 26,
       "style": "dark",
       "tags": [],
       "templating": {
         "list": [
           {
             "allValue": null,
-            "current": null,
+            "current": {
+              "selected": true,
+              "text": "core",
+              "value": "core"
+            },
             "datasource": "IstioPrometheus",
             "definition": "",
+            "error": null,
             "hide": 0,
             "includeAll": false,
             "label": "Namespace",
@@ -1614,9 +1813,14 @@ data:
           },
           {
             "allValue": null,
-            "current": null,
+            "current": {
+              "selected": true,
+              "text": "tenantmanager-primary",
+              "value": "tenantmanager-primary"
+            },
             "datasource": "IstioPrometheus",
             "definition": "",
+            "error": null,
             "hide": 0,
             "includeAll": false,
             "label": "Primary",
@@ -1636,9 +1840,14 @@ data:
           },
           {
             "allValue": null,
-            "current": null,
+            "current": {
+              "selected": true,
+              "text": "tenantmanager",
+              "value": "tenantmanager"
+            },
             "datasource": "IstioPrometheus",
             "definition": "",
+            "error": null,
             "hide": 0,
             "includeAll": false,
             "label": "Canary",
@@ -1659,7 +1868,7 @@ data:
         ]
       },
       "time": {
-        "from": "now-5m",
+        "from": "now-1h",
         "to": "now"
       },
       "timepicker": {
@@ -1690,5 +1899,5 @@ data:
       "timezone": "",
       "title": "Istio Canary",
       "uid": "flagger-istio",
-      "version": 3
+      "version": 2
     }

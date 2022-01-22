@@ -4,9 +4,9 @@ namespace: monitoring
 resources:
 - active-alerts-dashboard.yaml
 - envoy-canary-dashboard.yaml
-- flux-dashboard.yaml
-- flux-helm-operator-dashboard.yaml
+- flux-cluster-stats-dashboard.yaml
+- flux-control-plane-dashboard.yaml
 - istio-canary-dashboard.yaml
+- istio-loki-dashboard.yaml
 - istio-rules.yaml
 - services-dashboard.yaml
-- slo-dashboard.yaml

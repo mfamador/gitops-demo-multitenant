@@ -23,7 +23,6 @@ spec:
     accessLogEncoding: JSON
     enableTracing: false
     defaultConfig:
-      # Avoid some pods failing on startup for not having network connectivity
       holdApplicationUntilProxyStarts: true
       tracing:
         sampling: 10.0
@@ -35,7 +34,11 @@ spec:
     cni:
       enabled: false
     ingressGateways:
-    # IngressGateways are patched in trough terraform
+    - name: istio-ingressgateway
+      enabled: true
+      k8s:
+        hpaSpec:
+          minReplicas: 2
     egressGateways:
     - name: istio-egressgateway
       enabled: false
