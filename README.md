@@ -43,66 +43,33 @@ The Git repository contains the following top directories:
 ├── clusters
 |  ├── production
 |  |  ├── northeurope
-|  |  |  └── flux-system
 |  |  └── westeurope
-|  |     └── flux-system
 |  └── staging
 |     ├── northeurope
-|     |  └── flux-system
 |     └── westeurope
-|        └── flux-system
 ├── operations
 |  ├── manifests
 |  |  ├── base
-|  |  |  ├── flux-system
-|  |  |  ├── istio-system
-|  |  |  └── monitoring
 |  |  ├── production
 |  |  |  ├── northeurope
-|  |  |  |  ├── istio-system
-|  |  |  |  └── monitoring
 |  |  |  └── westeurope
-|  |  |     ├── istio-system
-|  |  |     └── monitoring
 |  |  └── staging
 |  |     ├── northeurope
-|  |     |  ├── istio-system
-|  |     |  └── monitoring
 |  |     └── westeurope
-|  |        ├── istio-system
-|  |        └── monitoring
 |  └── releases
 |     ├── _sources
 |     ├── base
-|     |  ├── cert-manager
-|     |  ├── istio-system
-|     |  └── monitoring
 |     ├── production
 |     |  ├── northeurope
-|     |  |  ├── cert-manager
-|     |  |  ├── istio-system
-|     |  |  └── monitoring
 |     |  └── westeurope
-|     |     ├── cert-manager
-|     |     ├── istio-system
-|     |     └── monitoring
 |     └── staging
 |        ├── northeurope
-|        |  ├── cert-manager
-|        |  ├── istio-system
-|        |  └── monitoring
 |        └── westeurope
-|           ├── cert-manager
-|           ├── istio-system
-|           └── monitoring
 ├── policies
 |  ├── kyverno
 |  └── kyverno-policies
-├── scripts
 └── tenants
    ├── base
-   |  ├── core
-   |  └── data
    ├── production
    |  ├── northeurope
    |  └── westeurope
