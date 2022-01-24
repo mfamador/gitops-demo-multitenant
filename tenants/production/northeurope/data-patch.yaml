@@ -1,7 +1,0 @@
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  namespace: data
-  name: data
-spec:
-  path: ./production/northeurope

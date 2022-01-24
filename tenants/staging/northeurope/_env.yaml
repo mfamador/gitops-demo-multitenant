@@ -1,0 +1,10 @@
+apiVersion: builtin
+kind: PatchTransformer
+metadata:
+  name: kustomization-env-transformer
+patch: |-
+  - op: replace
+    path: /spec/path
+    value: ./staging/northeurope
+target:
+  kind: Kustomization
