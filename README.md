@@ -210,3 +210,7 @@ flux create kustomization core \
 Rename the secret and namespace to `core` and remove the managed and other fields.
 
 `❯ kubectl apply -f core-secret.yaml`
+
+## Install the metrics server
+
+`❯ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml`
