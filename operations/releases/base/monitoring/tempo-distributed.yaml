@@ -11,14 +11,12 @@ spec:
         kind: HelmRepository
         name: grafana
         namespace: flux-system
-      version: "0.19.0"
+      version: "0.19.1"
   interval: 1h0m0s
   install:
     remediation:
       retries: 3
   values:
-    storage:
-      storageClassName: default
     traces:
       zipkin: true
       jaeger:
