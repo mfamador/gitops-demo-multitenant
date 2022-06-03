@@ -28,6 +28,8 @@ spec:
       jaeger:
         thriftHttp:
           enabled: true
+        thriftCompact:
+          enabled: true
       opencensus:
         enabled: true
     serviceMonitor:
