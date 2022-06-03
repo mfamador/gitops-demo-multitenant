@@ -18,4 +18,5 @@ spec:
       retries: 3
   values:
     config:
-      lokiAddress: http://loki-loki-distributed-gateway.monitoring/loki/api/v1/push
+      clients:
+      - url: http://loki-loki-distributed-gateway.monitoring/loki/api/v1/push
