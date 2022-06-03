@@ -18,12 +18,18 @@ spec:
       retries: 3
   values:
     traces:
-      zipkin: true
-      jaeger:
-        thriftCompact: true
       otlp:
-        http: true
-        grpc: true
+        grpc:
+          enabled: true
+        http:
+          enabled: true
+      zipkin:
+        enabled: true
+      jaeger:
+        thriftHttp:
+          enabled: true
+      opencensus:
+        enabled: true
     serviceMonitor:
       enabled: true
       interval: "15s"
