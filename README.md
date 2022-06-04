@@ -216,3 +216,9 @@ Rename the secret and namespace to `core` and remove the managed and other field
 ## Install the metrics server
 
 `❯ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml`
+
+## Make requests to the `critical` app
+
+``` 
+./scripts/make-requests.sh critical.staging.eun/outside
+```
