@@ -222,3 +222,17 @@ Rename the secret and namespace to `core` and remove the managed and other field
 ``` 
 ./scripts/make-requests.sh critical.staging.eun/outside
 ```
+
+## Utils
+
+### Create an EKS cluster
+
+``` 
+❯ eksctl create cluster --name eks-flux --region=eu-west-1 --nodes-min=3 --nodes-max=4
+```
+
+### Create a `k3d` cluster
+
+``` 
+❯ k3d cluster create -p 8888:80@loadbalancer --agents 4 --k3s-arg "--disable=traefik@server:0"
+```
