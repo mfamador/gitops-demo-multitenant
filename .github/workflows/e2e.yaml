@@ -51,7 +51,7 @@ jobs:
         kubectl -n flux-system wait kustomization/kyverno --for=condition=ready --timeout=1m
         kubectl -n flux-system wait kustomization/kyverno-controller --for=condition=ready --timeout=1m
         kubectl -n flux-system wait kustomization/kyverno-policies --for=condition=ready --timeout=1m
-        kubectl -n flux-system wait kustomization/tenants --for=condition=ready --timeout=3m
+        # kubectl -n flux-system wait kustomization/tenants --for=condition=ready --timeout=3m
     - name: Verify tenant reconciliation
       run: |
         kubectl -n apps wait kustomization/dev-team --for=condition=ready --timeout=1m
