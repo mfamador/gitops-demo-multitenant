@@ -11,3 +11,4 @@ resources:
 - promtail.yaml
 - tempo-distributed.yaml
 - thanos.yaml
+- mimir.yaml

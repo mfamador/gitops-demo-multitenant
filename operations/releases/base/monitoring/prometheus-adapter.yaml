@@ -12,7 +12,7 @@ spec:
         name: prometheus-community
         namespace: flux-system
       # https://github.com/prometheus-community/helm-charts/issues/1739
-      version: "3.3.1"
+      version: "3.4.0"
   interval: 1h0m0s
   install:
     remediation:

@@ -11,7 +11,7 @@ spec:
         kind: HelmRepository
         name: prometheus-community
         namespace: flux-system
-      version: "36.0.1"
+      version: "40.2.0"
   interval: 1h0m0s
   timeout: 30m
   install:
@@ -39,3 +39,5 @@ spec:
         podMonitorSelector:
           matchLabels:
             tier: cluster
+        remoteWrite:
+        - url: http://mimir-nginx/api/v1/push

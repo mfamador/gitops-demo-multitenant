@@ -11,7 +11,7 @@ spec:
         kind: HelmRepository
         name: grafana
         namespace: flux-system
-      version: "6.29.11"
+      version: "6.40.0"
   interval: 1h0m0s
   install:
     remediation:
@@ -95,6 +95,11 @@ spec:
         #      uid: thanos_ds
         #      url: http://thanos-query-http.monitoring:10902
         #      isDefault: true
+        - name: Mimir
+          type: prometheus
+          access: proxy
+          uid: mimir_ds
+          url: http://mimir-nginx/prometheus
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
