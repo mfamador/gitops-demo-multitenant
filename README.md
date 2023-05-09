@@ -6,7 +6,6 @@
 
 _For the original example see [flux2-multi-tenancy](https://github.com/fluxcd/flux2-multi-tenancy)._
 
-
 # Scenario
 
 For this example we assume a scenario with two clusters: staging and production, both having multiple regions each. The
